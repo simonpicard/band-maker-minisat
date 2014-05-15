@@ -10,7 +10,7 @@
 #define __InfoFond__Problem__
 #include "Solver.hpp"
 #include <vector>
-
+#include <algorithm>
 #include <iostream>
 
 int prop (int, int, int);

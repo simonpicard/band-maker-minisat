@@ -13,12 +13,12 @@
 
 int main(int argc, const char * argv[])
 {
-    
+
     std::vector<std::vector<int> > matrix;
-    matrix = parse("/Users/Rapace/Desktop/InfoFond/InfoFond/exemple1.txt");
-    
+    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemple1.txt");
+
     std::cout<<"Done parsing"<<std::endl;
-    
+
     mainP(matrix);
     /*
     for (int i = 0 ; i < matrix.size() ; i++){

@@ -11,8 +11,10 @@
 
 #include <iostream>
 #include <vector>
-#include <string> 
+#include <string>
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
 
 std::vector<std::vector<int> > parse (std::string);
 
