@@ -8,18 +8,19 @@
 
 #include <iostream>
 #include "Parser.h"
-#include "Problem.h"
+#include "Problem3.h"
 #include <vector>
 
 int main(int argc, const char * argv[])
 {
 
+
     std::vector<std::vector<int> > matrix;
-    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemple1.txt");
+    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemples/Q3/exemple1.txt");
 
     std::cout<<"Done parsing"<<std::endl;
 
-    mainP(matrix);
+    main3(matrix);
     /*
     for (int i = 0 ; i < matrix.size() ; i++){
         for(int j = 0 ; j < matrix[i].size() ; ++j){

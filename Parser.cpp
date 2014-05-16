@@ -25,7 +25,8 @@ std::vector<std::vector<int> > parse (std::string filename){
 
         for(int i = 0; i < line.size()-1; ++i){
             if (line[i] != ' '){
-                tmp = tmp*10 + atoi(&line[i]);
+                tmp *= 10;
+                tmp += int(line[i])-48;
             }
             else{
                 header.push_back(tmp);
@@ -45,7 +46,8 @@ std::vector<std::vector<int> > parse (std::string filename){
                 }
 
                 else{
-                    tmp = tmp*10 + atoi(&line[j]);
+                    tmp *= 10;
+                    tmp += int(line[j])-48;
                 }
             }
             temp.push_back(tmp);

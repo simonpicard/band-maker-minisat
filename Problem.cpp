@@ -25,10 +25,9 @@ int mainP(std::vector<std::vector<int> > mat){
     i = matrix[0][1];
     k = matrix[0][2];
     g = max(i, max(k, m));
-    FOR(j, 1, (prop(m, i, k))){
+    FOR(j, 1, (prop(m, i, k)+1)){
         s.newVar();}
     setConstraint();
-    std::cout << s.nClauses();
     s.solve();
     display();
 
@@ -79,11 +78,13 @@ void setConstraint(){
     }
     std::cout<<"Done existance"<<std::endl;
     FOR(a, 1, m){
-        FOR(b, 1, matrix[a].size() - 1){
-            FOR(c1, 1, k){
-                FOR(c2, c1+1, k){
-                    // Contrainte 1 joueur dans un seul groupe
-                    s.addBinary(~Lit(prop(a, matrix[a][b], c1)), ~Lit(prop(a, matrix[a][b], c2)));
+        FOR(b1, 1, matrix[a].size() - 1){
+            FOR(b2, 1, matrix[a].size() - 1){
+                FOR(c1, 1, k){
+                    FOR(c2, c1+1, k){
+                        // Contrainte 1 joueur dans un seul groupe
+                        s.addBinary(~Lit(prop(a, matrix[a][b1], c1)), ~Lit(prop(a, matrix[a][b2], c2)));
+                    }
                 }
             }
         }
