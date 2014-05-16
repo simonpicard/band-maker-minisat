@@ -10,6 +10,7 @@
 #include "Parser.h"
 #include "Problem3.h"
 #include <vector>
+#include <fstream>
 
 int main(int argc, const char * argv[])
 {
@@ -30,4 +31,18 @@ int main(int argc, const char * argv[])
     }
     */
     return 0;
+}
+
+void writeInFile(std::string filename, std::string data){
+    
+    std::ofstream fichier(filename, std::ios::out | std::ios::app);
+    
+    if(fichier)
+    {
+        fichier << data;
+        
+        fichier.close();
+    }
+    else
+        std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
 }
