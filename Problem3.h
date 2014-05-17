@@ -18,6 +18,7 @@ int main3(std::vector<std::vector<int> > );
 void setConstraint();
 void display();
 void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> c);
-void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<int> litsProp, std::vector<int> listClause);
+void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<std::vector<int> >  litsProp, std::vector<int> listClause);
+int countVec(int a, std::vector<int> c);
 
 #endif /* defined(__InfoFond__Problem__) */

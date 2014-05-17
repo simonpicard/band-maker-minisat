@@ -38,11 +38,11 @@ void display(){
     if (s.okay()){
         std::cout << "Satifaisable\n"<<std::endl;
         FOR (c, 1, k){
-            std::cout << "Groupe "<<c<<" : | ";
+            std::cout << "Groupe "<<c<<": ";
             FOR (b, 1, i){
                 FOR (a, 1, m){
                     if (s.model[prop(a,b,c)] == l_True){
-                        std::cout <<a<<" joue "<<b<<" | ";
+                        std::cout <<a<<" ";
                     }
                 }
             }
@@ -89,7 +89,7 @@ void setConstraint(){
             }
         }
     }
-    std::cout<<"Done 1 joueur 1 groupe"<<std::endl;
+    std::cout<<"Done 1 joueur par groupe"<<std::endl;
     FOR(a, 1, m){
         FOR(c, 1, k){
             FOR(b1, 1, matrix[a].size()-1){
@@ -100,7 +100,7 @@ void setConstraint(){
             }
         }
     }
-    std::cout<<"Done 1 instru 1 groupe"<<std::endl;
+    std::cout<<"Done 1 instrument joué par groupe"<<std::endl;
 
     FOR(c, 1, k){
         FOR(a1, 1, m){
@@ -108,18 +108,16 @@ void setConstraint(){
                 FOR(b2, 1, i){
                     if (matrix[a1][b1] != b2){
                         lits.clear();
-                        //std::cout<<"("<<a1<<", "<<matrix[a1][b1]<<", "<<c<<") -> (";
-                        std::cout<<"("<<a1<<", "<<matrix[a1][b1]<<", "<<c<<") -> ( ";
+                        //std::cout<<"("<<a1<<", "<<matrix[a1][b1]<<", "<<c<<") -> ( ";
                         lits.push(~Lit(prop(a1, matrix[a1][b1], c)));
                         FOR(a2, 1, m){
                             // Contrainte tout instrument ou aucun dans chaque groupe
                             if(a1 != a2 && canPlay(a2,b2)){
                                 lits.push(Lit(prop(a2, b2, c)));
-                                //s.addBinary(~Lit(prop(a1, matrix[a1][b1], c)), Lit(prop(a2, matrix[a2][b2], c)));
-                                std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
+                                //std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
                             }
                         }
-                        std::cout<<")"<<std::endl;
+                        //std::cout<<")"<<std::endl;
                         s.addClause(lits);
                     }
                     //std::cout<<") "<<std::endl;

@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fullpage,french,epsf,fancyheadings}
+\usepackage{amsmath}
+
+
+\newcommand{\vrai}{\mbox{\sc Vrai}}
+\newcommand{\faux}{\mbox{\sc Faux}}
+\newcommand{\prop}{proposition}
+\newcommand{\imp}{\rightarrow}
+\newcommand{\lorb}{\stackrel{}{\bar{\lor}}}
+\newcommand{\landb}{\stackrel{}{\bar{\land}}}
+\newcommand{\Caml}{Caml Light}
+\newcommand{\C}[1]{{\cal C}(#1)}
+%\newcommand{\question}{\marginpar{\hfill$\Box$}}
+\newcommand{\question}{?}
+
+\newtheorem{defi}{Définition}
+\reversemarginpar
+
+
+\begin{document}
+
+	\begin{titlepage}
+	\begin{center}
+	\textbf{\textsc{UNIVERSIT\'E LIBRE DE BRUXELLES}}\\
+	\textbf{\textsc{Faculté des Sciences}}\\
+	\textbf{\textsc{Département d'Informatique}}
+	\vfill{}\vfill{}
+	\begin{center}{\Huge INFO-F-302 Informatique Fondamentale : Rapport de projet}\end{center}{\Huge \par}
+	\begin{center}{\large \textsc{Omer} Nicolas \\\textsc{Picard} Simon}\end{center}{\Huge \par}
+	\vfill{}\vfill{}
+	\vfill{}\vfill{}\enlargethispage{3cm}
+	\textbf{Année académique 2013~-~2014}
+	\end{center}
+	
+	\end{titlepage}
+	
+    \pagebreak
+
+\section{Question 1}
+\subsection{FNC}
+\subsubsection{Définition des variables}
+M est le nombre de musiciens.\\
+I est le nombre d'instruments.\\
+K est le nombre maximum de groupes.\\
+$X_{a,b,c}$ est une variable qui défini si le musicien \textit{a} jour l'insrtuement \textit{b} dans le groupe \textit{c}.\\
+$I_a$ représente la liste des instrument que \textit{a} maitrise.
+\subsubsection{Contrainte d'éxistence}
+
+
+$$\bigwedge\limits_{0<a\le M}\ \left(\bigvee\limits_{0<c\le K}\ \bigvee\limits_{b\in I_a}\ X_{a,b,c}\right)$$
+
+\subsubsection{Un groupe par musicien}
+
+
+$$\bigwedge\limits_{0<a\le m}\ \bigwedge\limits_{b_1\in I_a}\ \bigwedge\limits_{b_2\in I_a}\ \bigwedge\limits_{0<c_1\le K}\ \bigwedge\limits_{c_1<c_2\le K}\ \left(\neg X_{a,b_1,c_1} \vee \neg X_{a,b_2,c_2}\right)$$
+
+\subsubsection{Un instrument par groupe}
+
+
+$$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{b_1\in I_a}\ \bigwedge\limits_{\substack{b_2\in I_a \\ b_2 \ne b1}}\ \left(\neg X_{a,b_1,c} \vee \neg X_{a,b_2,c}\right)$$
+
+\subsubsection{Un seul musicient peut joueur d'un certains instrument dans un groupe}
+
+
+$$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{a_1<a_2\le M}\ \bigwedge\limits_{\substack{b\in I_{a_1} \\ b\in I_{a_2}}}\ \left(\neg X_{a_1,b,c} \vee \neg X_{a_2,b,c}\right)$$
+
+\subsubsection{Tout les instruments dans un groupe ou aucun}
+
+
+$$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{b_1\in I_{a_1}}\ \bigwedge\limits_{\substack{0<b_2\le I \\ b_2 \ne b_1}}\ \left(\neg X_{a_1,b_1,c} \bigvee\limits_{\substack{0<a_2\le M \\ a_2 \ne a_1 \\ b_2 \in I{a_2}}}\ \neg X_{a_2,b,c}\right)$$
+
+
+\end{document}
