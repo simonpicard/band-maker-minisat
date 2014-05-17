@@ -10,39 +10,39 @@
 
 #define FOR(k, lb, ub) for (int k = (lb) ; (k) <= (ub) ; (k)++)
 
-int i, k, m, g;
-Solver s;
-std::vector<std::vector<int> > matrix;
+int I1, K1, M1, G1;
+Solver S1;
+std::vector<std::vector<int> > matrix1;
 
-int prop (int a, int b, int c){
-    return ( ( (a - 1) * g + (b - 1) ) * g + c);
+int propP1(int a, int b, int c){
+    return ( ( (a - 1) * G1 + (b - 1) ) * G1 + c);
 }
 
-int mainP(std::vector<std::vector<int> > mat){
+int mainP1(std::vector<std::vector<int> > mat){
 
-    matrix = mat;
-    m = matrix[0][0];
-    i = matrix[0][1];
-    k = matrix[0][2];
-    g = max(i, max(k, m));
-    FOR(j, 1, (prop(m, i, k)+1)){
-        s.newVar();}
-    setConstraint();
-    s.solve();
-    display();
+    matrix1 = mat;
+    M1 = matrix1[0][0];
+    I1 = matrix1[0][1];
+    K1 = matrix1[0][2];
+    G1 = max(I1, max(K1, M1));
+    FOR(j, 1, (propP1(M1, I1, K1) + 1)){
+        S1.newVar();}
+    setConstraintP1();
+    S1.solve();
+    displayP1();
 
     return 0;
 }
 
-void display(){
-    if (s.okay()){
-        std::cout << "Satifaisable\n"<<std::endl;
-        FOR (c, 1, k){
-            std::cout << "Groupe "<<c<<": ";
-            FOR (b, 1, i){
-                FOR (a, 1, m){
-                    if (s.model[prop(a,b,c)] == l_True){
-                        std::cout <<a<<" ";
+void displayP1(){
+    if (S1.okay()){
+        std::cout << "Satifaisable\n" << std::endl;
+        FOR (c, 1, K1){
+            std::cout << "Groupe " << c << ": ";
+            FOR (b, 1, I1){
+                FOR (a, 1, M1){
+                    if (S1.model[propP1(a,b,c)] == l_True){
+                        std::cout << a << " ";
                     }
                 }
             }
@@ -54,91 +54,88 @@ void display(){
     }
 }
 
-bool canPlay(int a, int b){
-    FOR(i, 1, matrix[a].size() - 1){
-        if (matrix[a][i] == b){
+bool canPlayP1(int a, int b){
+    FOR(i, 1, matrix1[a].size() - 1){
+        if (matrix1[a][i] == b){
             return true;
         }
     }
     return false;
 }
 
-void setConstraint(){
+void setConstraintP1(){
 
     vec<Lit> lits;
     // Contrainte d'existence
-    FOR(a, 1, m){
+    FOR(a, 1, M1){
         lits.clear();
-        FOR(b, 1, matrix[a].size() - 1){
-            FOR(c, 1, k){
-                lits.push(Lit(prop(a, matrix[a][b], c)));
+        FOR(b, 1, matrix1[a].size() - 1){
+            FOR(c, 1, K1){
+                lits.push(Lit(propP1(a, matrix1[a][b], c)));
             }
         }
-        s.addClause(lits);
+        S1.addClause(lits);
     }
-    std::cout<<"Done existance"<<std::endl;
-    FOR(a, 1, m){
-        FOR(b1, 1, matrix[a].size() - 1){
-            FOR(b2, 1, matrix[a].size() - 1){
-                FOR(c1, 1, k){
-                    FOR(c2, c1+1, k){
+    std::cout << "Done existance" << std::endl;
+    FOR(a, 1, M1){
+        FOR(b1, 1, matrix1[a].size() - 1){
+            FOR(b2, 1, matrix1[a].size() - 1){
+                FOR(c1, 1, K1){
+                    FOR(c2, c1 + 1, K1){
                         // Contrainte 1 joueur dans un seul groupe
-                        s.addBinary(~Lit(prop(a, matrix[a][b1], c1)), ~Lit(prop(a, matrix[a][b2], c2)));
+                        S1.addBinary(~Lit(propP1(a, matrix1[a][b1], c1)), ~Lit(propP1(a, matrix1[a][b2], c2)));
                     }
                 }
             }
         }
     }
-    std::cout<<"Done 1 joueur par groupe"<<std::endl;
-    FOR(a, 1, m){
-        FOR(c, 1, k){
-            FOR(b1, 1, matrix[a].size()-1){
-                FOR(b2, b1+1, matrix[a].size()-1){
+    std::cout << "Done 1 joueur par groupe" << std::endl;
+    
+    FOR(a, 1, M1){
+        FOR(c, 1, K1){
+            FOR(b1, 1, matrix1[a].size()-1){
+                FOR(b2, b1 + 1, matrix1[a].size()-1){
                     // Contrainte ¬ 2 instruments dans le même groupe
-                    s.addBinary(~Lit(prop(a, matrix[a][b1], c)), ~Lit(prop(a, matrix[a][b2], c)));
+                    S1.addBinary(~Lit(propP1(a, matrix1[a][b1], c)), ~Lit(propP1(a, matrix1[a][b2], c)));
                 }
             }
         }
     }
-    std::cout<<"Done 1 instrument joué par groupe"<<std::endl;
+    std::cout << "Done 1 instrument joué par groupe" << std::endl;
 
-    FOR(c, 1, k){
-        FOR(a1, 1, m){
-            FOR(b1, 1, matrix[a1].size()-1){
-                FOR(b2, 1, i){
-                    if (matrix[a1][b1] != b2){
+    FOR(c, 1, K1){
+        FOR(a1, 1, M1){
+            FOR(b1, 1, matrix1[a1].size()-1){
+                FOR(b2, 1, I1){
+                    if (matrix1[a1][b1] != b2){
                         lits.clear();
-                        //std::cout<<"("<<a1<<", "<<matrix[a1][b1]<<", "<<c<<") -> ( ";
-                        lits.push(~Lit(prop(a1, matrix[a1][b1], c)));
-                        FOR(a2, 1, m){
+                        lits.push(~Lit(propP1(a1, matrix1[a1][b1], c)));
+                        FOR(a2, 1, M1){
                             // Contrainte tout instrument ou aucun dans chaque groupe
-                            if(a1 != a2 && canPlay(a2,b2)){
-                                lits.push(Lit(prop(a2, b2, c)));
-                                //std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
+                            if(a1 != a2 && canPlayP1(a2,b2)){
+                                lits.push(Lit(propP1(a2, b2, c)));
                             }
                         }
-                        //std::cout<<")"<<std::endl;
-                        s.addClause(lits);
+                        S1.addClause(lits);
                     }
-                    //std::cout<<") "<<std::endl;
                 }
             }
         }
     }
-    std::cout<<"Done tout ou aucun instru un groupe"<<std::endl;
-    FOR(c, 1, k){
-        FOR(a1, 1, m){
-            FOR(a2, a1+1, m){
-                FOR(b, 1, matrix[a1].size()-1){
+    std::cout << "Done tout ou aucun instru un groupe" << std::endl;
+    
+    FOR(c, 1, K1){
+        FOR(a1, 1, M1){
+            FOR(a2, a1 + 1, M1){
+                FOR(b, 1, matrix1[a1].size()-1){
                     // Contrainte pas deux musiciens qui jouent d'un même instrument dans un même groupe
-                    if (canPlay(a2, matrix[a1][b]))
+                    if (canPlayP1(a2, matrix1[a1][b]))
                     {
-                        s.addBinary(~Lit(prop(a1, matrix[a1][b], c)), ~Lit(prop(a2, matrix[a1][b], c)));
-                        //std::cout<<"¬(("<<a1<<", "<<matrix[a1][b]<<", "<<c<<") /\\ ("<<a2<<", "<<matrix[a1][b]<<", "<<c<<"))"<<std::endl;
+                        S1.addBinary(~Lit(propP1(a1, matrix1[a1][b], c)), ~Lit(propP1(a2, matrix1[a1][b], c)));
                     }
                 }
             }
         }
     }
-    std::cout<<"Done 1 instru/musicien 1 groupe"<<std::endl;
+    std::cout << "Done 1 instru/musicien 1 groupe" << std::endl;
 }

@@ -1,49 +1,49 @@
 //
-//  Problem.cpp
+//  Problem2.cpp
 //  InfoFond
 //
-//  Created by Nicolas Omer on 14/05/14.
-//  Copyright (c) 2014 Nicolas Omer. All rights reserved.
+//  Created by Simon Picard, Nicolas Omer
+//  Copyright (c) 2014 Simon Picard, Nicolas Omer. All rights reserved.
 //
 
 #include "Problem2.h"
 
 #define FOR(k, lb, ub) for (int k = (lb) ; (k) <= (ub) ; (k)++)
 
-int I, K, M, g;
-Solver s;
-std::vector<std::vector<int> > matrix;
+int I2, K2, M2, G2;
+Solver S2;
+std::vector<std::vector<int> > matrix2;
 
-int prop (int a, int b, int c){
-    return ( ( (a - 1) * g + (b - 1) ) * g + c);
+int propP2(int a, int b, int c){
+    return ( ( (a - 1) * G2 + (b - 1) ) * G2 + c);
 }
 
-int main2(std::vector<std::vector<int> > mat){
+int mainP2(std::vector<std::vector<int> > mat){
 
-    matrix = mat;
-    M = matrix[0][0];
-    I = matrix[0][1];
-    K = matrix[0][2];
-    g = max(I, max(K, M));
-    FOR(j, 1, (prop(M, I, K)+1)){
-        s.newVar();}
+    matrix2 = mat;
+    M2 = matrix2[0][0];
+    I2 = matrix2[0][1];
+    K2 = matrix2[0][2];
+    G2 = max(I2, max(K2, M2));
+    FOR(j, 1, (propP2(M2, I2, K2) + 1)){
+        S2.newVar();}
 
-    setConstraint();
-    s.solve();
-    display();
+    setConstraintP2();
+    S2.solve();
+    displayP2();
 
     return 0;
 }
 
-void display(){
-    if (s.okay()){
-        std::cout << "Satifaisable\n"<<std::endl;
-        FOR (c, 1, K){
-            std::cout << "Groupe "<<c<<": ";
-            FOR (b, 1, I){
-                FOR (a, 1, M){
-                    if (s.model[prop(a,b,c)] == l_True){
-                        std::cout <<a<<" ";
+void displayP2(){
+    if (S2.okay()){
+        std::cout << "Satifaisable\n" << std::endl;
+        FOR (c, 1, K2){
+            std::cout << "Groupe " << c << ": ";
+            FOR (b, 1, I2){
+                FOR (a, 1, M2){
+                    if (S2.model[propP2(a,b,c)] == l_True){
+                        std::cout << a << " ";
                     }
                 }
             }
@@ -55,137 +55,118 @@ void display(){
     }
 }
 
-bool canPlay(int a, int b){
-    FOR(i, 2, matrix[a].size() - 1){
-        if (matrix[a][i] == b){
+bool canPlayP2(int a, int b){
+    FOR(i, 2, matrix2[a].size() - 1){
+        if (matrix2[a][i] == b){
             return true;
         }
     }
     return false;
 }
 
-void setConstraint(){
+void setConstraintP2(){
 
     vec<Lit> lits;
     // Contrainte d'existence
-    FOR(a, 1, M){
+    FOR(a, 1, M2){
         lits.clear();
-        FOR(b, 2, matrix[a].size() - 1){
-            FOR(c, 1, K){
-                lits.push(Lit(prop(a, matrix[a][b], c)));
+        FOR(b, 2, matrix2[a].size() - 1){
+            FOR(c, 1, K2){
+                lits.push(Lit(propP2(a, matrix2[a][b], c)));
             }
         }
-        s.addClause(lits);
+        S2.addClause(lits);
     }
-    std::cout<<"Done existence"<<std::endl;
+    std::cout << "Done existence" << std::endl;
 
     std::vector<int> cvec;
-    FOR(a, 1, M){
+    FOR(a, 1, M2){
         cvec.clear();
-        FOR(c, 1, matrix[a][1]+1){
+        FOR(c, 1, matrix2[a][1] + 1){
             cvec.push_back(c);
-            //std::cout<<c<<std::endl;
         }
-        setConstraintGroupe(a, matrix[a][1], 0, 1, cvec);
+        setConstraintGroupeP2(a, matrix2[a][1], 0, 1, cvec);
     }
-    std::cout<<"Done 1 joueur par groupes ET 1 instru par groupe"<<std::endl;
+    std::cout << "Done 1 joueur par groupes ET 1 instru par groupe" << std::endl;
 
-    /*FOR(a, 1, M){
-        FOR(c, 1, K){
-            FOR(b1, 2, matrix[a].size()-1){
-                FOR(b2, b1+1, matrix[a].size()-1){
-                    // Contrainte ¬ 2 instruments dans le même groupe
-                    //s.addBinary(~Lit(prop(a, matrix[a][b1], c)), ~Lit(prop(a, matrix[a][b2], c)));
-                    //la fct set groupe vérifie deja ceci
-                }
-            }
-        }
-    }
-    std::cout<<"Done 1 instru 1 groupe"<<std::endl;*/
-
-    FOR(c, 1, K){
-        FOR(a1, 1, M){
-            FOR(b1, 2, matrix[a1].size()-1){
-                FOR(b2, 1, I){
-                    if (matrix[a1][b1] != b2){
+    FOR(c, 1, K2){
+        FOR(a1, 1, M2){
+            FOR(b1, 2, matrix2[a1].size()-1){
+                FOR(b2, 1, I2){
+                    if (matrix2[a1][b1] != b2){
                         lits.clear();
-                        //std::cout<<"("<<a1<<", "<<matrix[a1][b1]<<", "<<c<<") -> ( ";
-                        lits.push(~Lit(prop(a1, matrix[a1][b1], c)));
-                        FOR(a2, 1, M){
+                        lits.push(~Lit(propP2(a1, matrix2[a1][b1], c)));
+                        FOR(a2, 1, M2){
                             // Contrainte tout instrument ou aucun dans chaque groupe
-                            if(a1 != a2 && canPlay(a2,b2)){
-                                lits.push(Lit(prop(a2, b2, c)));
-                                //std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
+                            if(a1 != a2 && canPlayP2(a2,b2)){
+                                lits.push(Lit(propP2(a2, b2, c)));
                             }
                         }
-                        //std::cout<<")"<<std::endl;
-                        s.addClause(lits);
+                        S2.addClause(lits);
                     }
                 }
             }
         }
     }
-    std::cout<<"Done tout ou aucun instru un groupe"<<std::endl;
+    std::cout << "Done tout ou aucun instru un groupe" << std::endl;
 
-    FOR(c, 1, K){
-        FOR(a1, 1, M){
-            FOR(a2, a1+1, M){
-                FOR(b, 2, matrix[a1].size()-1){
+    FOR(c, 1, K2){
+        FOR(a1, 1, M2){
+            FOR(a2, a1 + 1, M2){
+                FOR(b, 2, matrix2[a1].size() - 1){
                     // Contrainte pas deux musiciens qui jouent d'un même instrument dans un même groupe
-                    if (canPlay(a2, matrix[a1][b]))
+                    if (canPlayP2(a2, matrix2[a1][b]))
                     {
-                        s.addBinary(~Lit(prop(a1, matrix[a1][b], c)), ~Lit(prop(a2, matrix[a1][b], c)));
-                        //std::cout<<"¬(("<<a1<<", "<<matrix[a1][b]<<", "<<c<<") /\\ ("<<a2<<", "<<matrix[a1][b]<<", "<<c<<"))"<<std::endl;
+                        S2.addBinary(~Lit(propP2(a1, matrix2[a1][b], c)), ~Lit(propP2(a2, matrix2[a1][b], c)));
                     }
                 }
             }
         }
     }
-    std::cout<<"Done 1 instru par musicien par groupe"<<std::endl;
+    std::cout << "Done 1 instru par musicien par groupe" << std::endl;
 }
 
-void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> c){
+void setConstraintGroupeP2(int a, int deep, int current, int beginvar, std::vector<int> c){
     //if c[0] != k-(c.size()-1)
-    if (current>deep)
+    if (current > deep)
     {
-        //c est ici un ensemble ge groupe de la taille Max(a)+1
-        //On commence par générer toute les combinaison, instrument/groupe parmis cet esemble
+        // C'est ici un ensemble ge groupe de la taille Max(a)+1
+        // On commence par gŽnŽrer toutes les combinaisons, instrument/groupe parmi cet ensemble
         std::vector<int> lits;
         FOR(k, 0, deep){
-            FOR(b, 2, matrix[a].size() - 1){
-                lits.push_back(prop(a, matrix[a][b], c[k]));
+            FOR(b, 2, matrix2[a].size() - 1){
+                lits.push_back(propP2(a, matrix2[a][b], c[k]));
             }
         }
         std::vector<int> listClause;
         FOR(i, 0, deep){
             listClause.push_back(i);
         }
-        //ensuite on choisi toute les différente Max(a)+1 combinaison possible et on fait un clause Not (GxIx And GyIy ...)
-        setConstraintGroupeTer(deep, 0, 1, lits, listClause);
+        // Ensuite on choisit toutes les diffŽrentes Max(a)+1 combinaisons possibles et on fait un clause Not (GxIx And GyIy ...)
+        setConstraintGroupeTerP2(deep, 0, 1, lits, listClause);
         return;
     }
-    FOR(i, beginvar, K){
-        setConstraintGroupe(a, deep, current+1, i+1, c);
+    FOR(i, beginvar, K2){
+        setConstraintGroupeP2(a, deep, current + 1, i + 1, c);
         FOR (j, current, deep){
             c[j] += 1;
         }
     }
 }
 
-void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<int> litsProp, std::vector<int> listClause){
-    if (current>deep)
+void setConstraintGroupeTerP2(int deep, int current, int beginvar, std::vector<int> litsProp, std::vector<int> listClause){
+    if (current > deep)
     {
-
         vec<Lit> tmp;
         FOR(i, 0, deep){
             tmp.push(~Lit(litsProp[listClause[i]]));
         }
-        s.addClause(tmp);
+        S2.addClause(tmp);
 
         return;
     }
     FOR(i, beginvar, litsProp.size()){
-        setConstraintGroupeTer(deep, current+1, i+1, litsProp, listClause);
+        setConstraintGroupeTerP2(deep, current + 1, i + 1, litsProp, listClause);
         FOR (j, current, deep){
             listClause[j] += 1;
         }

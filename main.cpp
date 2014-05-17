@@ -2,29 +2,30 @@
 //  main.cpp
 //  InfoFond
 //
-//  Created by Nicolas Omer on 14/05/14.
-//  Copyright (c) 2014 Nicolas Omer. All rights reserved.
+//  Created by Simon Picard, Nicolas Omer
+//  Copyright (c) 2014 Simon Picard, Nicolas Omer. All rights reserved.
 //
 
 #include <iostream>
 #include "Parser.h"
+#include "Problem.h"
+#include "Problem2.h"
 #include "Problem3.h"
 #include <vector>
 #include <fstream>
 
 int main(int argc, const char * argv[])
 {
-
-
     std::vector<std::vector<int> > matrix;
-    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemples/Q3/exemple3.txt");
-
-    std::cout<<"Done parsing"<<std::endl;
-
-    main3(matrix);
+    
+    // à adapter pour le path absolu
+    matrix = parse("D:/Users/Simon/Desktop/InfoFond/exemples/Q1/exemple1.txt");
+    std::cout << "Done parsing" << std::endl;
+    
+    mainP2(matrix);
+    
     return 0;
 }
-
 void writeInFile(std::string filename, std::string data){
     
     std::ofstream fichier(filename, std::ios::out | std::ios::app);
@@ -36,5 +37,6 @@ void writeInFile(std::string filename, std::string data){
         fichier.close();
     }
     else
-        std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
+        std::cerr << "Impossible d'ouvrir le fichier" << std::endl;
 }
+

@@ -1,24 +1,26 @@
 //
-//  Problem.h
+//  Problem3.h
 //  InfoFond
 //
-//  Created by Nicolas Omer on 14/05/14.
-//  Copyright (c) 2014 Nicolas Omer. All rights reserved.
+//  Created by Simon Picard, Nicolas Omer
+//  Copyright (c) 2014 Simon Picard, Nicolas Omer. All rights reserved.
 //
 
 #ifndef __InfoFond__Problem3__
 #define __InfoFond__Problem3__
+
 #include "Solver.hpp"
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
-int prop (int, int, int);
-int main3(std::vector<std::vector<int> > );
-void setConstraint();
-void display();
-void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> c);
-void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<std::vector<int> >  litsProp, std::vector<int> listClause);
-int countVec(int a, std::vector<int> c);
+int propP3(int, int, int);
+int mainP3(std::vector<std::vector<int> > );
+void setConstraintP3();
+void displayP3();
+bool canPlayP3(int, int);
+void setConstraintGroupeP3(int, int, int, int, std::vector<int>);
+void setConstraintGroupeTerP3(int, int, int, std::vector<std::vector<int> >, std::vector<int>);
+int countVecP3(int, std::vector<int>);
 
-#endif /* defined(__InfoFond__Problem__) */
+#endif /* defined(__InfoFond__Problem3__) */

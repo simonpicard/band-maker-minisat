@@ -8,14 +8,16 @@
 
 #ifndef __InfoFond__Problem__
 #define __InfoFond__Problem__
+
 #include "Solver.hpp"
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
-int prop (int, int, int);
-int mainP(std::vector<std::vector<int> > );
-void setConstraint();
-void display();
+int propP1(int, int, int);
+int mainP1(std::vector<std::vector<int> > );
+void displayP1();
+bool canPlayP1(int, int);
+void setConstraintP1();
 
 #endif /* defined(__InfoFond__Problem__) */
