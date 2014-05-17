@@ -89,18 +89,18 @@ void setConstraint(){
             }
         }
     }
-    std::cout<<"Done 1 joueur par groupe ET 1 instrument joué par groupe"<<std::endl;
-    /*FOR(a, 1, m){
+    std::cout<<"Done 1 joueur par groupe"<<std::endl;
+    FOR(a, 1, m){
         FOR(c, 1, k){
             FOR(b1, 1, matrix[a].size()-1){
                 FOR(b2, b1+1, matrix[a].size()-1){
                     // Contrainte ¬ 2 instruments dans le même groupe
-                    //s.addBinary(~Lit(prop(a, matrix[a][b1], c)), ~Lit(prop(a, matrix[a][b2], c)));
+                    s.addBinary(~Lit(prop(a, matrix[a][b1], c)), ~Lit(prop(a, matrix[a][b2], c)));
                 }
             }
         }
     }
-    std::cout<<"Done 1 instru 1 groupe"<<std::endl;*/
+    std::cout<<"Done 1 instrument joué par groupe"<<std::endl;
 
     FOR(c, 1, k){
         FOR(a1, 1, m){
