@@ -21,13 +21,5 @@ int main(int argc, const char * argv[])
     std::cout<<"Done parsing"<<std::endl;
 
     main3(matrix);
-    /*
-    for (int i = 0 ; i < matrix.size() ; i++){
-        for(int j = 0 ; j < matrix[i].size() ; ++j){
-            std::cout << matrix[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    */
     return 0;
 }

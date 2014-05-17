@@ -39,7 +39,7 @@ void display(){
     if (s.okay()){
         std::cout << "Satifaisable\n"<<std::endl;
         FOR (c, 1, K){
-            std::cout << "Groupe "<<c<<" : ";
+            std::cout << "Groupe "<<c<<": ";
             FOR (b, 1, I){
                 FOR (a, 1, M){
                     if (s.model[prop(a,b,c)] == l_True){
@@ -77,49 +77,31 @@ void setConstraint(){
         }
         s.addClause(lits);
     }
-    std::cout<<"Done existance"<<std::endl;
+    std::cout<<"Done existence"<<std::endl;
 
-    FOR(a, 1, M){
-        lits.clear();
-        FOR(b, 1, I){
-            if (not canPlay(a, b)){
-                FOR(c, 1, K){
-                    //lits.push(~Lit(prop(a, b, c)));
-                }
-            }
-        }
-        //s.addClause(lits);
-    }
-    std::cout<<"Done not existance"<<std::endl;
-
-    std::vector<int> cvec, bvec;
+    std::vector<int> cvec;
     FOR(a, 1, M){
         cvec.clear();
-        bvec.clear();
-        std::cout<<"----- "<<a<<" "<<matrix[a][1]+1<<std::endl;
         FOR(c, 1, matrix[a][1]+1){
             cvec.push_back(c);
             //std::cout<<c<<std::endl;
         }
-        FOR(b, 1, I){
-            bvec.push_back(b);
-            //std::cout<<c<<std::endl;
-        }
-        setConstraintGroupe(a, matrix[a][1], 0, 1, bvec, cvec);
+        setConstraintGroupe(a, matrix[a][1], 0, 1, cvec);
     }
-    std::cout<<"Done 1 joueur 1 groupe"<<std::endl;
+    std::cout<<"Done 1 joueur par groupes ET 1 instru par groupe"<<std::endl;
 
-    FOR(a, 1, M){
+    /*FOR(a, 1, M){
         FOR(c, 1, K){
             FOR(b1, 2, matrix[a].size()-1){
                 FOR(b2, b1+1, matrix[a].size()-1){
                     // Contrainte ¬ 2 instruments dans le même groupe
-                    s.addBinary(~Lit(prop(a, matrix[a][b1], c)), ~Lit(prop(a, matrix[a][b2], c)));
+                    //s.addBinary(~Lit(prop(a, matrix[a][b1], c)), ~Lit(prop(a, matrix[a][b2], c)));
+                    //la fct set groupe vérifie deja ceci
                 }
             }
         }
     }
-    std::cout<<"Done 1 instru 1 groupe"<<std::endl;
+    std::cout<<"Done 1 instru 1 groupe"<<std::endl;*/
 
     FOR(c, 1, K){
         FOR(a1, 1, M){
@@ -159,20 +141,19 @@ void setConstraint(){
             }
         }
     }
-    std::cout<<"Done 1 instru/musicien 1 groupe"<<std::endl;
+    std::cout<<"Done 1 instru par musicien par groupe"<<std::endl;
 }
 
-void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> b, std::vector<int> c){
+void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> c){
     //if c[0] != k-(c.size()-1)
     if (current>deep)
     {
         //c est ici un ensemble ge groupe de la taille Max(a)+1
         //On commence par générer toute les combinaison, instrument/groupe parmis cet esemble
         std::vector<int> lits;
-        std::cout<<"=====|- "<<" "<<a<<std::endl;
         FOR(k, 0, deep){
-            FOR(i, 1, I){
-                lits.push_back(prop(a, i, c[k]));
+            FOR(b, 2, matrix[a].size() - 1){
+                lits.push_back(prop(a, matrix[a][b], c[k]));
             }
         }
         std::vector<int> listClause;
@@ -184,7 +165,7 @@ void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector
         return;
     }
     FOR(i, beginvar, K){
-        setConstraintGroupe(a, deep, current+1, i+1, b, c);
+        setConstraintGroupe(a, deep, current+1, i+1, c);
         FOR (j, current, deep){
             c[j] += 1;
         }

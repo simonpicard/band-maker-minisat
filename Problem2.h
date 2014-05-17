@@ -17,7 +17,7 @@ int prop (int, int, int);
 int main2(std::vector<std::vector<int> > );
 void setConstraint();
 void display();
-void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> b, std::vector<int> c);
+void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector<int> c);
 void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<int> litsProp, std::vector<int> listClause);
 
 #endif /* defined(__InfoFond__Problem__) */
