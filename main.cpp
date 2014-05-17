@@ -16,7 +16,7 @@ int main(int argc, const char * argv[])
 
 
     std::vector<std::vector<int> > matrix;
-    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemples/Q3/exemple1.txt");
+    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemples/Q3/exemple3.txt");
 
     std::cout<<"Done parsing"<<std::endl;
 

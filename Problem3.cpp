@@ -115,7 +115,15 @@ void setConstraint(){
                         lits.push(~Lit(prop(a1, matrix[a1][b1], c)));
                         FOR(a2, 1, M){
                             // Contrainte tout instrument ou aucun dans chaque groupe
-                            if(a1 != a2 && canPlay(a2,b2)){
+                            if(a1 != a2 && canPlay(a2,b2) && matrix[a1][b1] != I){
+                                lits.push(Lit(prop(a2, b2, c)));
+                                //std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
+                            }
+                            else if(canPlay(a2,b2) && matrix[a1][b1] == I){
+                                lits.push(Lit(prop(a2, b2, c)));
+                                //std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
+                            }
+                            else if(a1 == a2 && canPlay(a2,b2) && b2 == I){
                                 lits.push(Lit(prop(a2, b2, c)));
                                 //std::cout<<"("<<a2<<", "<<b2<<", "<<c<<") \\/ ";
                             }
@@ -152,11 +160,16 @@ void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector
     {
         //c est ici un ensemble ge groupe de la taille Max(a)+1
         //On commence par générer toute les combinaison, instrument/groupe parmis cet esemble
-        std::vector<int> lits;
+        std::vector<std::vector<int> > lits;
+        std::vector<int> tmp;
         std::cout<<"=====|- "<<" "<<a<<std::endl;
         FOR(k, 0, deep){
-            FOR(i, 1, I-1){
-                lits.push_back(prop(a, i, c[k]));
+            FOR(b, 2, matrix[a].size() - 1){
+                tmp.clear();
+                tmp.push_back(a);
+                tmp.push_back(matrix[a][b]);
+                tmp.push_back(c[k]);
+                lits.push_back(tmp);
             }
         }
         std::vector<int> listClause;
@@ -175,14 +188,27 @@ void setConstraintGroupe(int a, int deep, int current, int beginvar, std::vector
     }
 }
 
-void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<int> litsProp, std::vector<int> listClause){
+void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<std::vector<int> > litsProp, std::vector<int> listClause){
     if (current>deep)
     {
 
         vec<Lit> tmp;
+        std::vector<int> c;
         FOR(i, 0, deep){
-            tmp.push(~Lit(litsProp[listClause[i]]));
+            c.push_back(litsProp[listClause[i]][2]);
         }
+        FOR(i, 0, deep){
+            if (countVec(c[i], c) > 1){
+                return;
+                //en fait dans le 2 cette condition était double, elle vérifait non seulement qu'un joueur ne peut pas être dans deux groupe
+                //mais aussi qu'il ne jouait pas plus d'un instrument pas groupe, ici sous certaine condition il a le droit, nous préférons alors ne plus vérifier ça en même temps
+            }
+        }
+        FOR(i, 0, deep){
+            tmp.push(~Lit(prop(litsProp[listClause[i]][0], litsProp[listClause[i]][1], litsProp[listClause[i]][2])));
+            //std::cout<<"("<<litsProp[listClause[i]][0]<<", "<<litsProp[listClause[i]][1]<<", "<<litsProp[listClause[i]][2]<<") \\/ ";
+        }
+        //std::cout<<"FIN"<<std::endl;
         s.addClause(tmp);
 
         return;
@@ -193,4 +219,14 @@ void setConstraintGroupeTer(int deep, int current, int beginvar, std::vector<int
             listClause[j] += 1;
         }
     }
+}
+
+int countVec(int a, std::vector<int> c){
+    int res = 0;
+    FOR(i, 0, c.size() - 1){
+        if (c[i] == a){
+            res += 1;
+        }
+    }
+    return res;
 }
