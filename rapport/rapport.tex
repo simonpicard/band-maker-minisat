@@ -51,17 +51,25 @@
 	
     \pagebreak
 
+\section{Introduction}
+
+Le but du projet d'informatique fondamentale est de former des groupes de musique sous certaines contraintes. Il s'agit d'exprimer les contraintes sous forme normale conjonctive afin de les encoder dans l'outil permettant de résoudre les différents problèmes donnés. Pour cela, nous utilisons le solveur \textit{MiniSat} qui permet de déterminer, sous un ensemble de contraintes, si un problème est satisfaisable.
+
 \section{Question 1}
 
 \subsection{Forme Normale Conjonctive}
 
 \subsubsection{Définition des variables}
 
+Dans cette section, nous définissons les différentes variables que nous utilisons dans l'expression des contraintes sous forme normale conjonctive.
+
+pour tout musicien a, instrument b et groupe c, Xa,b,c = vrai ssi le musicien a joue de l’instrument b dans le groupe c.
+
 \begin{itemize}
 \item M est le nombre de musiciens.
 \item I est le nombre d'instruments.
 \item K est le nombre maximum de groupes.
-\item $X_{a,b,c}$ est une variable qui défini si le musicien \textit{a} jour l'insrtuement \textit{b} dans le groupe \textit{c}.
+\item $X_{a,b,c}$ est une variable telle que pour tout musicien \textit{a}, l'instrument \textit{b} dans le groupe \textit{c}, $X_{a,b,c}$ = vrai si et seulement si le musicien \textit{a} joue de l’instrument \textit{b} dans le groupe \textit{c}.
 \item $I_a$ représente la liste des instrument que \textit{a} maitrise.
 \end{itemize}
 
