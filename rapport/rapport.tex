@@ -76,24 +76,57 @@ pour tout musicien a, instrument b et groupe c, Xa,b,c = vrai ssi le musicien a 
 \subsubsection{Contrainte d'existence}
 
 $$\bigwedge\limits_{0<a\le M}\ \left(\bigvee\limits_{0<c\le K}\ \bigvee\limits_{b\in I_a}\ X_{a,b,c}\right)$$
+Il s'agit simplement de dire que chaque musicien doit jouer un des instruments qu'il maitrise dans un groupe.
 
 \subsubsection{Un musicien ne peut être que dans un seul groupe}
 
-$$\bigwedge\limits_{0<a\le m}\ \bigwedge\limits_{b_1\in I_a}\ \bigwedge\limits_{b_2\in I_a}\ \bigwedge\limits_{0<c_1\le K}\ \bigwedge\limits_{c_1<c_2\le K}\ \left(\neg X_{a,b_1,c_1} \vee \neg X_{a,b_2,c_2}\right)$$
+$$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{b_1\in I_a}\ \bigwedge\limits_{b_2\in I_a}\ \bigwedge\limits_{0<c_1\le K}\ \bigwedge\limits_{c_1<c_2\le K}\ \left(\neg X_{a,b_1,c_1} \vee \neg X_{a,b_2,c_2}\right)$$
+
+Par muscien, nous disons qu'il ne peut pas, à la fois jouer d'un instrument $b_1$ quelconque dans un groupe $c_1$ et un instrument $b_2$ quelconque dans un autre groupe $c_2$.
 
 \subsubsection{Un instrument par groupe}
 
 $$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{b_1\in I_a}\ \bigwedge\limits_{\substack{b_2\in I_a \\ b_2 \ne b1}}\ \left(\neg X_{a,b_1,c} \vee \neg X_{a,b_2,c}\right)$$
 
+Par muscien, nous disons qu'il ne peut pas, à la fois jouer d'un instrument $b_1$ dans un groupe c et d'un autre instrument $b_2$ quelconque dans le même groupe c.
+
 \subsubsection{Un seul musicien peut jouer d'un certain instrument dans un groupe}
 
 $$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{a_1<a_2\le M}\ \bigwedge\limits_{\substack{b\in I_{a_1} \\ b\in I_{a_2}}}\ \left(\neg X_{a_1,b,c} \vee \neg X_{a_2,b,c}\right)$$
+
+Nous exprimons ici que, dans un même groupe, une personne $a_1$ et autre $a_2$ ne peuve pas jouer du même instrument.
 
 \subsubsection{Tout les instruments dans un groupe ou aucun}
 
 $$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{b_1\in I_{a_1}}\ \bigwedge\limits_{\substack{0<b_2\le I \\ b_2 \ne b_1}}\ \left(\neg X_{a_1,b_1,c} \bigvee\limits_{\substack{0<a_2\le M \\ a_2 \ne a_1 \\ b_2 \in I{a_2}}}\ \neg X_{a_2,b,c}\right)$$
 
+Ici nous voulons exprimer la contrainte groupe complet ou vide, pour ce faire nous utilisons une implication qui dit que, dans chaque groupe, si un musicien $a_1$ joue d'un instrument $b_1$, alors ceci implique que, pour chaque autre instrument $b_2$, un des autres musiciens maîtrisant ce dernier, $a_2$, le joue dans ce groupe.
+
 \section{Question 2}
+
+\begin{itemize}
+\item $Max_a$ représente le nombre maximum de groupe dans lequel le musicien \textit{a} peut jouer.
+\end{itemize}
+
+\subsubsection{Contrainte d'existence}
+
+\subsubsection{Un musicien ne peut pas jouer dans plus de $Max_a$ groupe}
+
+$$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{0<c_1\le K}\ \bigwedge\limits_{c_1<c_2\le K}\ \ldots\ \bigwedge\limits_{c_{{Max_a}-1}<c_{Max_a}\le K}\ \bigwedge\limits_{b_1 \in I_a}\ \bigwedge\limits_{b_2 \in I_a}\ \ldots\  \bigwedge\limits_{b_{Max_a} \in I_a} $$
+
+$$\bigwedge\limits_{0<n_{k_0}\le K}\  \ldots\  \bigwedge\limits_{n_{k_{Max_a-1}}<n_{k_{Max_a}}\le K}\ \bigwedge\limits_{0<n_{i_0}\le I}\  \ldots\  \bigwedge\limits_{0<n_{i_{Max_a}}\le I}$$
+
+$$ \bigwedge\limits_{0<y\le Max_a}\  \left( \bigvee\limits_{0<z\le Max_a}\  \neg X_{a,b_{n_{i_{y}}},c_{n_{k_{z}}}}\right)$$
+
+Nous nous rendons qu'avec cette contrainte, nous vérifions aussi "Un instrument par groupe" puisque parfois $n_i$ sera le même pour toute la clause, dès lors nous n'avons plus besoin de cette contrainte.\\
+Pour les reste, les autres contraintes sont identiques.\\
+
+Le nombre de clauses crée sera : \\
+
+$$\sum_{a=1}^{M}\ \left( {K \choose Max_a}\ * \ I^{Max_a}\ *\ {K \choose Max_a}\ *\ I^{Max_a}\ *\  Max_a \right) $$
+
+Sachant que chaque clauses est composé des $Max_a$ litéraux.
+
 
 \section{Question 3}
 
