@@ -116,10 +116,10 @@ void setConstraintP3(){
                                 if(a1 != a2 && matrix3[a1][b1] != I3){
                                     lits.push(Lit(propP3(a2, b2, c)));
                                 }
-                                else if(canPlayP3(a2,b2) && matrix3[a1][b1] == I3){
+                                else if(matrix3[a1][b1] == I3){
                                     lits.push(Lit(propP3(a2, b2, c)));
                                 }
-                                else if(a1 == a2 && canPlayP3(a2, b2) && b2 == I3){
+                                else if(a1 == a2 && b2 == I3){
                                     lits.push(Lit(propP3(a2, b2, c)));
                                 }
                             }

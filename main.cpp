@@ -17,23 +17,24 @@
 int main(int argc, const char * argv[])
 {
     std::vector<std::vector<int> > matrix;
-    
+
     // à adapter pour le path absolu
-    matrix = parse("D:/Users/Simon/Desktop/InfoFond/exemples/Q1/exemple1.txt");
+    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemples/Q2/exemple3.txt");
     std::cout << "Done parsing" << std::endl;
-    
+
     mainP2(matrix);
-    
+
     return 0;
 }
 void writeInFile(std::string filename, std::string data){
-    
-    std::ofstream fichier(filename, std::ios::out | std::ios::app);
-    
+
+    std::ofstream fichier;
+    fichier.open(filename.c_str(), std::ios::out | std::ios::app);
+
     if(fichier)
     {
         fichier << data;
-        
+
         fichier.close();
     }
     else

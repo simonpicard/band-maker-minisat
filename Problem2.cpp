@@ -30,6 +30,7 @@ int mainP2(std::vector<std::vector<int> > mat){
 
     setConstraintP2();
     S2.solve();
+
     displayP2();
 
     return 0;

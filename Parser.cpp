@@ -56,5 +56,6 @@ std::vector<std::vector<int> > parse (std::string filename){
             temp.clear();
         }
     }
+    else {std::cout<< "Erreur"<<std::endl;}
     return matrix;
 }
