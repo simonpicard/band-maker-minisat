@@ -43,12 +43,12 @@ void displayP2(){
             std::cout << "Groupe " << c << ": ";
             FOR (b, 1, I2){
                 FOR (a, 1, M2){
-                    if (S2.model[propP2(a,b,c)] == l_True){
+                    if (S2.model[propP2(a, b, c)] == l_True){
                         std::cout << a << " ";
                     }
                 }
             }
-            std::cout <<std::endl;
+            std::cout << std::endl;
         }
     }
     else{
@@ -99,7 +99,7 @@ void setConstraintP2(){
                         lits.push(~Lit(propP2(a1, matrix2[a1][b1], c)));
                         FOR(a2, 1, M2){
                             // Contrainte tout instrument ou aucun dans chaque groupe
-                            if(a1 != a2 && canPlayP2(a2,b2)){
+                            if(a1 != a2 && canPlayP2(a2, b2)){
                                 lits.push(Lit(propP2(a2, b2, c)));
                             }
                         }

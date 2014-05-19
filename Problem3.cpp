@@ -42,12 +42,12 @@ void displayP3(){
             std::cout << "Groupe " << c << " : ";
             FOR (b, 1, I3){
                 FOR (a, 1, M3){
-                    if (S3.model[propP3(a,b,c)] == l_True){
+                    if (S3.model[propP3(a, b, c)] == l_True){
                         std::cout << a << " ";
                     }
                 }
             }
-            std::cout <<std::endl;
+            std::cout << std::endl;
         }
     }
     else{
@@ -105,7 +105,7 @@ void setConstraintP3(){
 
     FOR(c, 1, K3){
         FOR(a1, 1, M3){
-            FOR(b1, 2, matrix3[a1].size()-1){
+            FOR(b1, 2, matrix3[a1].size() - 1){
                 FOR(b2, 1, I3){
                     if (matrix3[a1][b1] != b2){
                         lits.clear();
@@ -135,7 +135,7 @@ void setConstraintP3(){
     FOR(c, 1, K3){
         FOR(a1, 1, M3){
             FOR(a2, a1 + 1, M3){
-                FOR(b, 2, matrix3[a1].size()-1){
+                FOR(b, 2, matrix3[a1].size() - 1){
                     // Contrainte pas deux musiciens qui jouent d'un mme instrument dans un mme groupe
                     if (canPlayP3(a2, matrix3[a1][b]) && matrix3[a1][b] != I3)
                     {
@@ -173,7 +173,7 @@ void setConstraintGroupeP3(int a, int deep, int current, int beginvar, std::vect
         return;
     }
     FOR(i, beginvar, K3){
-        setConstraintGroupeP3(a, deep, current+1, i + 1, c);
+        setConstraintGroupeP3(a, deep, current + 1, i + 1, c);
         FOR (j, current, deep){
             c[j] += 1;
         }

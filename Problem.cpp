@@ -41,12 +41,12 @@ void displayP1(){
             std::cout << "Groupe " << c << ": ";
             FOR (b, 1, I1){
                 FOR (a, 1, M1){
-                    if (S1.model[propP1(a,b,c)] == l_True){
+                    if (S1.model[propP1(a, b, c)] == l_True){
                         std::cout << a << " ";
                     }
                 }
             }
-            std::cout <<std::endl;
+            std::cout << std::endl;
         }
     }
     else{
@@ -77,6 +77,7 @@ void setConstraintP1(){
         S1.addClause(lits);
     }
     std::cout << "Done existance" << std::endl;
+    
     FOR(a, 1, M1){
         FOR(b1, 1, matrix1[a].size() - 1){
             FOR(b2, 1, matrix1[a].size() - 1){
@@ -93,8 +94,8 @@ void setConstraintP1(){
     
     FOR(a, 1, M1){
         FOR(c, 1, K1){
-            FOR(b1, 1, matrix1[a].size()-1){
-                FOR(b2, b1 + 1, matrix1[a].size()-1){
+            FOR(b1, 1, matrix1[a].size() - 1){
+                FOR(b2, b1 + 1, matrix1[a].size() - 1){
                     // Contrainte ¬ 2 instruments dans le même groupe
                     S1.addBinary(~Lit(propP1(a, matrix1[a][b1], c)), ~Lit(propP1(a, matrix1[a][b2], c)));
                 }
@@ -105,14 +106,14 @@ void setConstraintP1(){
 
     FOR(c, 1, K1){
         FOR(a1, 1, M1){
-            FOR(b1, 1, matrix1[a1].size()-1){
+            FOR(b1, 1, matrix1[a1].size() - 1){
                 FOR(b2, 1, I1){
                     if (matrix1[a1][b1] != b2){
                         lits.clear();
                         lits.push(~Lit(propP1(a1, matrix1[a1][b1], c)));
                         FOR(a2, 1, M1){
                             // Contrainte tout instrument ou aucun dans chaque groupe
-                            if(a1 != a2 && canPlayP1(a2,b2)){
+                            if(a1 != a2 && canPlayP1(a2, b2)){
                                 lits.push(Lit(propP1(a2, b2, c)));
                             }
                         }
@@ -127,7 +128,7 @@ void setConstraintP1(){
     FOR(c, 1, K1){
         FOR(a1, 1, M1){
             FOR(a2, a1 + 1, M1){
-                FOR(b, 1, matrix1[a1].size()-1){
+                FOR(b, 1, matrix1[a1].size() - 1){
                     // Contrainte pas deux musiciens qui jouent d'un même instrument dans un même groupe
                     if (canPlayP1(a2, matrix1[a1][b]))
                     {
