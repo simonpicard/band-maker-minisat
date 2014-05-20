@@ -18,8 +18,8 @@ int propP1(int a, int b, int c){
     return ( ( (a - 1) * G1 + (b - 1) ) * G1 + c);
 }
 
-int mainP1(std::vector<std::vector<int> > mat){
-
+int mainP1(std::vector<std::vector<int> > mat, std::string filename){
+    
     matrix1 = mat;
     M1 = matrix1[0][0];
     I1 = matrix1[0][1];
@@ -29,28 +29,36 @@ int mainP1(std::vector<std::vector<int> > mat){
         S1.newVar();}
     setConstraintP1();
     S1.solve();
-    displayP1();
-
+    displayP1(filename);
+    
     return 0;
 }
 
-void displayP1(){
+void displayP1(std::string filename){
     if (S1.okay()){
         std::cout << "Satifaisable\n" << std::endl;
+        writeInFile(filename, "Satifaisable\n");
         FOR (c, 1, K1){
             std::cout << "Groupe " << c << ": ";
+            writeInFile(filename, "Groupe");
+            writeInFile(filename, c);
+            writeInFile(filename, ": ");
             FOR (b, 1, I1){
                 FOR (a, 1, M1){
                     if (S1.model[propP1(a, b, c)] == l_True){
                         std::cout << a << " ";
+                        writeInFile(filename, a);
+                        writeInFile(filename, " ");
                     }
                 }
             }
             std::cout << std::endl;
+            writeInFile(filename, "\n");
         }
     }
     else{
         std::cout << "Non Satifaisable";
+        writeInFile(filename, "Non Satifaisable");
     }
 }
 
@@ -64,7 +72,7 @@ bool canPlayP1(int a, int b){
 }
 
 void setConstraintP1(){
-
+    
     vec<Lit> lits;
     // Contrainte d'existence
     FOR(a, 1, M1){
@@ -77,7 +85,6 @@ void setConstraintP1(){
         S1.addClause(lits);
     }
     std::cout << "Done existance" << std::endl;
-    
     FOR(a, 1, M1){
         FOR(b1, 1, matrix1[a].size() - 1){
             FOR(b2, 1, matrix1[a].size() - 1){
@@ -94,8 +101,8 @@ void setConstraintP1(){
     
     FOR(a, 1, M1){
         FOR(c, 1, K1){
-            FOR(b1, 1, matrix1[a].size() - 1){
-                FOR(b2, b1 + 1, matrix1[a].size() - 1){
+            FOR(b1, 1, matrix1[a].size()-1){
+                FOR(b2, b1 + 1, matrix1[a].size()-1){
                     // Contrainte ¬ 2 instruments dans le même groupe
                     S1.addBinary(~Lit(propP1(a, matrix1[a][b1], c)), ~Lit(propP1(a, matrix1[a][b2], c)));
                 }
@@ -103,7 +110,7 @@ void setConstraintP1(){
         }
     }
     std::cout << "Done 1 instrument joué par groupe" << std::endl;
-
+    
     FOR(c, 1, K1){
         FOR(a1, 1, M1){
             FOR(b1, 1, matrix1[a1].size() - 1){

@@ -18,8 +18,8 @@ int propP3(int a, int b, int c){
     return ( ( (a - 1) * G3 + (b - 1) ) * G3 + c);
 }
 
-int mainP3(std::vector<std::vector<int> > mat){
-
+int mainP3(std::vector<std::vector<int> > mat, std::string filename){
+    
     matrix3 = mat;
     M3 = matrix3[0][0];
     I3 = matrix3[0][1];
@@ -27,31 +27,39 @@ int mainP3(std::vector<std::vector<int> > mat){
     G3 = max(I3, max(K3, M3));
     FOR(j, 1, (propP3(M3, I3, K3) + 1)){
         S3.newVar();}
-
+    
     setConstraintP3();
     S3.solve();
-    displayP3();
-
+    displayP3(filename);
+    
     return 0;
 }
 
-void displayP3(){
+void displayP3(std::string filename){
     if (S3.okay()){
         std::cout << "Satifaisable\n" << std::endl;
+        writeInFile(filename, "Satifaisable\n");
         FOR (c, 1, K3){
             std::cout << "Groupe " << c << " : ";
+            writeInFile(filename, "Groupe");
+            writeInFile(filename, c);
+            writeInFile(filename, ": ");
             FOR (b, 1, I3){
                 FOR (a, 1, M3){
                     if (S3.model[propP3(a, b, c)] == l_True){
                         std::cout << a << " ";
+                        writeInFile(filename, a);
+                        writeInFile(filename, " ");
                     }
                 }
             }
-            std::cout << std::endl;
+            std::cout <<std::endl;
+            writeInFile(filename, "\n");
         }
     }
     else{
         std::cout << "Non Satifaisable";
+        writeInFile(filename, "Non Satifaisable");
     }
 }
 
@@ -65,7 +73,7 @@ bool canPlayP3(int a, int b){
 }
 
 void setConstraintP3(){
-
+    
     vec<Lit> lits;
     // Contrainte d'existence
     FOR(a, 1, M3){
@@ -78,7 +86,7 @@ void setConstraintP3(){
         S3.addClause(lits);
     }
     std::cout << "Done existance" << std::endl;
-
+    
     std::vector<int> cvec;
     FOR(a, 1, M3){
         cvec.clear();
@@ -88,7 +96,7 @@ void setConstraintP3(){
         setConstraintGroupeP3(a, matrix3[a][1], 0, 1, cvec);
     }
     std::cout << "Done 1 joueur 1 groupe" << std::endl;
-
+    
     FOR(a, 1, M3){
         FOR(c, 1, K3){
             FOR(b1, 2, matrix3[a].size() - 1){
@@ -102,7 +110,7 @@ void setConstraintP3(){
         }
     }
     std::cout << "Done 1 instru 1 groupe" << std::endl;
-
+    
     FOR(c, 1, K3){
         FOR(a1, 1, M3){
             FOR(b1, 2, matrix3[a1].size() - 1){
@@ -112,7 +120,7 @@ void setConstraintP3(){
                         lits.push(~Lit(propP3(a1, matrix3[a1][b1], c)));
                         FOR(a2, 1, M3){
                             // Contrainte tout instrument ou aucun dans chaque groupe
-                            if (canPlayP3(a2,b2)){
+                            if (canPlayP3(a2, b2)){
                                 if(a1 != a2 && matrix3[a1][b1] != I3){
                                     lits.push(Lit(propP3(a2, b2, c)));
                                 }
@@ -131,7 +139,7 @@ void setConstraintP3(){
         }
     }
     std::cout << "Done tout ou aucun instru un groupe" << std::endl;
-
+    
     FOR(c, 1, K3){
         FOR(a1, 1, M3){
             FOR(a2, a1 + 1, M3){
@@ -199,7 +207,7 @@ void setConstraintGroupeTerP3(int deep, int current, int beginvar, std::vector<s
             tmp.push(~Lit(propP3(litsProp[listClause[i]][0], litsProp[listClause[i]][1], litsProp[listClause[i]][2])));
         }
         S3.addClause(tmp);
-
+        
         return;
     }
     FOR(i, beginvar, litsProp.size()){

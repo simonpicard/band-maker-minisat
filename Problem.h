@@ -10,13 +10,14 @@
 #define __InfoFond__Problem__
 
 #include "Solver.hpp"
+#include "Writer.h"
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
 int propP1(int, int, int);
-int mainP1(std::vector<std::vector<int> > );
-void displayP1();
+int mainP1(std::vector<std::vector<int> > , std::string);
+void displayP1(std::string);
 bool canPlayP1(int, int);
 void setConstraintP1();
 

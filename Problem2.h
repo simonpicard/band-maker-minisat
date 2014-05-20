@@ -10,14 +10,15 @@
 #define __InfoFond__Problem2__
 
 #include "Solver.hpp"
+#include "Writer.h"
 #include <vector>
 #include <algorithm>
 #include <iostream>
 
 int propP2(int, int, int);
-int mainP2(std::vector<std::vector<int> > );
+int mainP2(std::vector<std::vector<int> > , std::string);
 void setConstraintP2();
-void displayP2();
+void displayP2(std::string);
 bool canPlayP2(int, int);
 void setConstraintGroupeP2(int, int, int, int, std::vector<int>);
 void setConstraintGroupeTerP2(int, int, int, std::vector<int>, std::vector<int>);

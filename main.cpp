@@ -12,32 +12,38 @@
 #include "Problem2.h"
 #include "Problem3.h"
 #include <vector>
-#include <fstream>
 
-int main(int argc, const char * argv[])
-{
-    std::vector<std::vector<int> > matrix;
-
-    // à adapter pour le path absolu
-    matrix = parse("D:/Users/Simon/Desktop/Projet Git/infofon/exemples/Q2/exemple3.txt");
-    std::cout << "Done parsing" << std::endl;
-
-    mainP2(matrix);
-
+int main(int argc, const char * argv[]){
+    if (argc != 3){
+        std::cout << "Utilisation : ./QuestionI fichier_d'entrée fichier_de_sortie" << std::endl;
+    }
+    
+    else{
+        
+        std::vector<std::vector<int> > matrix;
+        std::string question = argv[0];
+        std::string output = argv[2];
+        matrix = parse(argv[1]);
+        
+        std::cout << "Done parsing" << std::endl;
+        
+        char number = question[question.size() - 1];
+        
+        if(number == '1'){
+            mainP1(matrix, output);
+        }
+        else if(number == '2'){
+            mainP2(matrix, output);
+        }
+        else if(number == '3'){
+            mainP3(matrix, output);
+        }
+        else{
+            std::cout << "Utilisation : ./QuestionI fichier_d'entrée fichier_de_sortie" << std::endl;
+        }
+    }
+    
     return 0;
 }
-void writeInFile(std::string filename, std::string data){
 
-    std::ofstream fichier;
-    fichier.open(filename.c_str(), std::ios::out | std::ios::app);
-
-    if(fichier)
-    {
-        fichier << data;
-
-        fichier.close();
-    }
-    else
-        std::cerr << "Impossible d'ouvrir le fichier" << std::endl;
-}
 
