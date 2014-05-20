@@ -21,31 +21,31 @@
 
 \begin{document}
 
-	\begin{titlepage}
-	\begin{tikzpicture}[remember picture, overlay]
-	  \node [anchor=north east, inner sep=0pt]  at (current page.north east)
-	     {\includegraphics[height=3cm]{Baniere_ULB.png}};
-	\end{tikzpicture}
-	\begin{center}
-	\textbf{\textsc{UNIVERSIT\'E LIBRE DE BRUXELLES}}\\
-	\textbf{\textsc{Faculté des Sciences}}\\
-	\textbf{\textsc{Département d'Informatique}}
-	\vfill{}\vfill{}
-	\begin{center}{\Huge INFO-F-302 Informatique Fondamentale : Rapport de projet}\end{center}{\Huge \par}
-	\begin{center}{\large \textsc{Omer} Nicolas \\\textsc{Picard} Simon}\end{center}{\Huge \par}
-	\vfill{}\vfill{}
-	\vfill{}\vfill{}\enlargethispage{3cm}
-	
-	\begin{figure} [h!]
+ \begin{titlepage}
+ \begin{tikzpicture}[remember picture, overlay]
+   \node [anchor=north east, inner sep=0pt]  at (current page.north east)
+      {\includegraphics[height=3cm]{Baniere_ULB.png}};
+ \end{tikzpicture}
+ \begin{center}
+ \textbf{\textsc{UNIVERSIT\'E LIBRE DE BRUXELLES}}\\
+ \textbf{\textsc{Faculté des Sciences}}\\
+ \textbf{\textsc{Département d'Informatique}}
+ \vfill{}\vfill{}
+ \begin{center}{\Huge INFO-F-302 Informatique Fondamentale : Rapport de projet}\end{center}{\Huge \par}
+ \begin{center}{\large \textsc{Omer} Nicolas \\\textsc{Picard} Simon}\end{center}{\Huge \par}
+ \vfill{}\vfill{}
+ \vfill{}\vfill{}\enlargethispage{3cm}
+ 
+ \begin{figure} [h!]
              \centering
-	    \includegraphics[width=4cm]{Sigle_ULB.png}
-	\end{figure}
-	
-	\textbf{Année académique 2013~-~2014}
-	\end{center}
-	
-	\end{titlepage}
-	
+     \includegraphics[width=4cm]{Sigle_ULB.png}
+ \end{figure}
+ 
+ \textbf{Année académique 2013~-~2014}
+ \end{center}
+ 
+ \end{titlepage}
+ 
 \tableofcontents
 \pagebreak
 
@@ -64,7 +64,7 @@ Dans cette section, nous définissons les différentes variables et symboles que
 \item I est le nombre d'instruments.
 \item K est le nombre maximum de groupes.
 \item $X_{a,b,c}$ est une variable telle que pour tout musicien \textit{a}, l'instrument \textit{b} dans le groupe \textit{c}, $X_{a,b,c}$ = vrai si et seulement si le musicien \textit{a} joue de l’instrument \textit{b} dans le groupe \textit{c}.
-\item $I_a$ représente la liste des instrument que \textit{a} maitrise.
+\item $I_a$ représente la liste des instruments que \textit{a} maitrise.
 \end{itemize}
 
 \subsection{Forme Normale Conjonctive}
@@ -92,7 +92,7 @@ $$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{
 
 Nous exprimons ici que, dans un même groupe, une personne $a_1$ et autre $a_2$ ne peuvent pas jouer du même instrument dans un groupe.
 
-\subsubsection{Tout les instruments dans un groupe ou aucun}
+\subsubsection{Tous les instruments dans un groupe ou aucun}
 
 $$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{b_1\in I_{a_1}}\ \bigwedge\limits_{\substack{0<b_2\le I \\ b_2 \ne b_1}}\ \left(\neg X_{a_1,b_1,c} \bigvee\limits_{\substack{0<a_2\le M \\ a_2 \ne a_1 \\ b_2 \in I{a_2}}}\ X_{a_2,b_2,c}\right)$$
 
@@ -104,21 +104,21 @@ Ici nous voulons exprimer la contrainte groupe complet ou vide, pour ce faire no
 
 \begin{itemize}
 \item $Max_a$ représente le nombre maximum de groupe dans lequel le musicien \textit{a} peut jouer.
-\item $|I_a|$ représente la cardinalité de $I_a$ soit le nombre d'instrument dont \textit{a} peut se servir.
+\item $|I_a|$ représente la cardinalité de $I_a$ soit le nombre d'instruments dont \textit{a} peut se servir.
 \end{itemize}
 
 Les variables et symboles restants sont identiques à ceux de la question 1.
 
 \subsection{Forme Normale Conjonctive}
 
-\subsubsection{Un musicien ne peut pas jouer dans plus de $Max_a$ groupe}
+\subsubsection{Un musicien ne peut pas jouer dans plus de $Max_a$ groupes}
 
 Pour implémenter cela, nous allons étendre la solution "un groupe maximum" qui, pour rappel, voulait exprimer $\neg (groupe_1 \wedge groupe_2) \wedge \neg (groupe_2 \wedge groupe_3) \ldots$
 Dans la conjonction se trouveront $Max_a+1$ littéraux. Pour se faire, on commence par générer tous les sous-ensembles de groupe de taille $Max_a+1$ et toutes les combinaisons de $I_a$ de taille $Max_a+1$. Car un joueur ne peut pas jouer d'un même instrument dans différents groupes ni de différents instruments dans différents groupes. 
 
 A la seconde étape, on génère toutes les combinaisons d'identifiants ($t$ et $s$) et finalement, il ne reste qu'à choisir une des combinaisons avec les variables $x$ et $y$.
 
-Cette contrainte est exprimée par la première ligne de la forme normale conjonctive suivante. On peut illustrer cela par un exemple où $K$ = 3 et $Max_a+1$ = 2
+Cette contrainte est exprimée par la première ligne de la forme normale conjonctive suivante. On peut illustrer cela par un exemple où $K$ = 3 et $Max_a+1$ = 2\\\\
 
 $$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{0<c_1\le K}\ \bigwedge\limits_{c_1<c_2\le K}\ \ldots\ \bigwedge\limits_{c_{{Max_a}}<c_{Max_{a}+1}\le K}\ \bigwedge\limits_{b_1 \in I_a}\ \bigwedge\limits_{b_2 \in I_a}\ \ldots\  \bigwedge\limits_{b_{Max_a+1} \in I_a} $$
 
@@ -138,7 +138,7 @@ Soit\\
 $$\sum_{a=1}^{M}\ \left( {K \choose Max_a+1}\ * \ |I_a|^{Max_a+1}\ *\ \left(Max_a+1\right)^{2*(Max_a+1)+1}\ \right) $$
 
 Sachant que chaque clause est composée des $Max_a$ littéraux. 
-Cependant, il y aura des doublons dans les clauses générées mais le solveur MiniSat se chargera de les supprimer pour nous\footnote{addendum au nombre de clauses créé à la section \ref{addendum}}.
+Cependant, il y aura des doublons dans les clauses générées, mais le solveur MiniSat se chargera de les supprimer pour nous\footnote{addendum au nombre de clauses créé à la section \ref{addendum}}.
 
 \section{Question 3}
 
@@ -158,16 +158,16 @@ C'est toujours vrai sauf quand l'instrument considéré est le chant.
 
 $$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{a_1<a_2\le M}\ \bigwedge\limits_{\substack{b\in I_{a_1} \\ b\in I_{a_2} \\ b \ne I}}\ \left(\neg X_{a_1,b,c} \vee \neg X_{a_2,b,c}\right)$$
 
-\subsubsection{Tout les instruments dans un groupe ou aucun}
+\subsubsection{Tous les instruments dans un groupe ou aucun}
 
-La contrainte reste vraie, cependant si un musicien utilise un autre instrument que sa voix, ceci peut impliquer qu'il chante et inversement (s'il maîtrise ces instruments bien sur).\\
+La contrainte reste vraie, cependant si un musicien utilise un autre instrument que sa voix, ceci peut impliquer qu'il chante et inversement (s'il maîtrise ces instruments bien surs).\\
 
 $$\bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{0<a_1\le M}\ \bigwedge\limits_{b_1\in I_{a_1}}\ \bigwedge\limits_{\substack{0<b_2\le I \\ b_2 \ne b_1}}\ \left(\neg X_{a_1,b_1,c} \ \bigvee\limits_{\substack{0<a_2\le M \\ b_2 \in I{a_2}}}\left( \
 \bigvee\limits_{\substack{a_2 \ne a_1 \\ b_1 \ne I}}\  X_{a_2,b_2,c}\ 
 \bigvee\limits_{\substack{b_1 = I}}\ X_{a_2,b_2,c}\ 
 \bigvee\limits_{\substack{a_2 = a_1 \\ b_2 = I}}\ X_{a_2,b_2,c}\right)\right)$$
 
-Dans la parenthèse la plus imbriquée, le premier grand ou est le même que précédemment, le second signifie que, si $a_1$ chante, alors $a_2$ peut chanter aussi et le dernière représente la fait que si $a_1$ joue d'un instrument et qu'il sait chanter, il peut faire les deux.
+Dans la parenthèse la plus imbriquée, le premier grand ou est le même que précédemment, le second signifie que, si $a_1$ chante, alors $a_2$ peut chanter aussi et le dernière représente le fait que si $a_1$ joue d'un instrument et qu'il sait chanter, il peut faire les deux.
 
 \subsubsection{Un instrument par groupe}
 
@@ -179,9 +179,9 @@ $$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{0<c\le K}\ \bigwedge\limits_{\s
 
 Il s'agit de la même expression que dans la première question sauf que $b_1$ et $b_2$ ne peuvent pas valoir $I$, le \textsl{chant}.
 
-\subsubsection{Un musicien ne peut pas jouer dans plus de $Max_a$ groupe}
+\subsubsection{Un musicien ne peut pas jouer dans plus de $Max_a$ groupes}
 
-Cette contrainte reste vraie, sauf pour l'instrument $I$ et il ne faut plus introduire en même temps la contrainte décrite ci dessus. Voici la forme normale conjonctive :\\
+Cette contrainte reste vraie, sauf pour l'instrument $I$ et il ne faut plus introduire en même temps la contrainte décrite ci-dessus. Voici la forme normale conjonctive :\\
 
 $$\bigwedge\limits_{0<a\le M}\ \bigwedge\limits_{0<c_1\le K}\ \bigwedge\limits_{c_1<c_2\le K}\ \ldots\ \bigwedge\limits_{c_{{Max_a}}<c_{Max_{a}+1}\le K}\ \bigwedge\limits_{\substack{b_1 \in I_a \\ b_1 \ne I}}\ \bigwedge\limits_{\substack{b_2 \in I_a \\ b_2 \ne I}}\ \ldots\  \bigwedge\limits_{\substack{b_{Max_a+1} \in I_a \\ b_{Max_a} \ne I}} $$
 
@@ -189,7 +189,7 @@ $$ \bigwedge\limits_{0<t_{1}\le Max_a+1}\  \ldots\  \bigwedge\limits_{t_{Max_a}<
 
 $$ \bigwedge\limits_{0<y\le Max_a+1}\  \left( \bigvee\limits_{0<z\le Max_a+1}\  \neg X_{a,b_{s_{y}},c_{t_{z}}}\right)$$
 
-Ici, nous ne prenons plus tous les ensembles d'indices de $c$, $t$ mais uniquement les ensembles différents, nous nous retrouvons alors avec un coefficient binomial ${Max_a \choose Max_a}$ qui vaut 1, en effet il s'agit simplement de la suite des indices ce qui nous donne bien ce qu'on souhaite, chaque $c_t$ sera différent des autres.
+Ici, nous ne prenons plus tous les ensembles d'indices de $c$, $,t$ mais uniquement les ensembles différents, nous nous retrouvons alors avec un coefficient binomial ${Max_a \choose Max_a}$ qui vaut 1, en effet il s'agit simplement de la suite des indices ce qui nous donne bien ce qu'on souhaite, chaque $c_t$ sera différent des autres.
 
 \label{addendum}
 
