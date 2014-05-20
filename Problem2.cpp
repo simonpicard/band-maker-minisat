@@ -37,29 +37,28 @@ int mainP2(std::vector<std::vector<int> > mat, std::string filename){
 
 void displayP2(std::string filename){
     if (S2.okay()){
-        std::cout << "Satifaisable\n" << std::endl;
-        writeInFile(filename, "Satifaisable\n");
+        //std::cout << "Satifaisable\n" << std::endl;
         FOR (c, 1, K2){
-            std::cout << "Groupe " << c << ": ";
-            writeInFile(filename, "Groupe");
+            //std::cout << "Groupe " << c << ": ";
+            writeInFile(filename, "groupe ");
             writeInFile(filename, c);
             writeInFile(filename, ": ");
             FOR (b, 1, I2){
                 FOR (a, 1, M2){
                     if (S2.model[propP2(a, b, c)] == l_True){
-                        std::cout << a << " ";
+                        //std::cout << a << " ";
                         writeInFile(filename, a);
                         writeInFile(filename, " ");
                     }
                 }
             }
-            std::cout <<std::endl;
+            //std::cout <<std::endl;
             writeInFile(filename, "\n");
         }
     }
     else{
-        std::cout << "Non Satifaisable";
-        writeInFile(filename, "Non Satifaisable");
+        //std::cout << "Non Satifaisable";
+        writeInFile(filename, "impossible");
     }
 }
 
@@ -85,7 +84,6 @@ void setConstraintP2(){
         }
         S2.addClause(lits);
     }
-    std::cout << "Done existence" << std::endl;
     
     std::vector<int> cvec;
     FOR(a, 1, M2){
@@ -95,7 +93,6 @@ void setConstraintP2(){
         }
         setConstraintGroupeP2(a, matrix2[a][1], 0, 1, cvec);
     }
-    std::cout << "Done 1 joueur par groupes ET 1 instru par groupe" << std::endl;
     
     FOR(c, 1, K2){
         FOR(a1, 1, M2){
@@ -116,7 +113,6 @@ void setConstraintP2(){
             }
         }
     }
-    std::cout << "Done tout ou aucun instru un groupe" << std::endl;
     
     FOR(c, 1, K2){
         FOR(a1, 1, M2){
@@ -131,7 +127,6 @@ void setConstraintP2(){
             }
         }
     }
-    std::cout << "Done 1 instru par musicien par groupe" << std::endl;
 }
 
 void setConstraintGroupeP2(int a, int deep, int current, int beginvar, std::vector<int> c){

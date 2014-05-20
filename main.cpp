@@ -25,7 +25,7 @@ int main(int argc, const char * argv[]){
         std::string output = argv[2];
         matrix = parse(argv[1]);
         
-        std::cout << "Done parsing" << std::endl;
+        //std::cout << "Done parsing" << std::endl;
         
         char number = question[question.size() - 1];
         

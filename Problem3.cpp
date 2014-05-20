@@ -37,29 +37,27 @@ int mainP3(std::vector<std::vector<int> > mat, std::string filename){
 
 void displayP3(std::string filename){
     if (S3.okay()){
-        std::cout << "Satifaisable\n" << std::endl;
-        writeInFile(filename, "Satifaisable\n");
         FOR (c, 1, K3){
-            std::cout << "Groupe " << c << " : ";
-            writeInFile(filename, "Groupe");
+            //std::cout << "Groupe " << c << " : ";
+            writeInFile(filename, "groupe ");
             writeInFile(filename, c);
             writeInFile(filename, ": ");
             FOR (b, 1, I3){
                 FOR (a, 1, M3){
                     if (S3.model[propP3(a, b, c)] == l_True){
-                        std::cout << a << " ";
+                        //std::cout << a << " ";
                         writeInFile(filename, a);
                         writeInFile(filename, " ");
                     }
                 }
             }
-            std::cout <<std::endl;
+            //std::cout <<std::endl;
             writeInFile(filename, "\n");
         }
     }
     else{
-        std::cout << "Non Satifaisable";
-        writeInFile(filename, "Non Satifaisable");
+        //std::cout << "Non Satifaisable";
+        writeInFile(filename, "impossible");
     }
 }
 
@@ -85,7 +83,6 @@ void setConstraintP3(){
         }
         S3.addClause(lits);
     }
-    std::cout << "Done existance" << std::endl;
     
     std::vector<int> cvec;
     FOR(a, 1, M3){
@@ -95,7 +92,6 @@ void setConstraintP3(){
         }
         setConstraintGroupeP3(a, matrix3[a][1], 0, 1, cvec);
     }
-    std::cout << "Done 1 joueur 1 groupe" << std::endl;
     
     FOR(a, 1, M3){
         FOR(c, 1, K3){
@@ -109,7 +105,6 @@ void setConstraintP3(){
             }
         }
     }
-    std::cout << "Done 1 instru 1 groupe" << std::endl;
     
     FOR(c, 1, K3){
         FOR(a1, 1, M3){
@@ -138,7 +133,6 @@ void setConstraintP3(){
             }
         }
     }
-    std::cout << "Done tout ou aucun instru un groupe" << std::endl;
     
     FOR(c, 1, K3){
         FOR(a1, 1, M3){
@@ -153,7 +147,6 @@ void setConstraintP3(){
             }
         }
     }
-    std::cout << "Done 1 instru/musicien 1 groupe" << std::endl;
 }
 
 void setConstraintGroupeP3(int a, int deep, int current, int beginvar, std::vector<int> c){
