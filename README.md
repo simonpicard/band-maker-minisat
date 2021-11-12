@@ -21,7 +21,7 @@ INFO-F-302 Informatique Fondamentale : Rapport de projet
 
 <img src="doc/Sigle_ULB.png" style="width:4cm" alt="image" />
 
-**Année académique 2013 - 2014**
+**Année académique 2013 - 2014**
 
 </div>
 
@@ -62,7 +62,7 @@ normale conjonctive.
 
 ### Contrainte d’existence
 
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\inline&space;\bigwedge\limits_{0<a\le&space;M}\&space;\left(\bigvee\limits_{0<c\le&space;K}\&space;\bigvee\limits_{b\in&space;I_a}\&space;X_{a,b,c}\right)" title="\bg_white \inline \bigwedge\limits_{0<a\le M}\ \left(\bigvee\limits_{0<c\le K}\ \bigvee\limits_{b\in I_a}\ X_{a,b,c}\right)" />
+$$\\bigwedge\\limits\_{0\<a\\le M}\\ \\left(\\bigvee\\limits\_{0\<c\\le K}\\ \\bigvee\\limits\_{b\\in I_a}\\ X\_{a,b,c}\\right)$$
 Il s’agit simplement de dire que chaque musicien doit jouer un des
 instruments qu’il maitrise dans un groupe.
 
