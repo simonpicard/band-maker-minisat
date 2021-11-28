@@ -14,16 +14,16 @@
 #include <vector>
 
 int main(int argc, const char * argv[]){
-    if (argc != 3){
-        std::cout << "Utilisation : ./QuestionI fichier_d'entrée fichier_de_sortie" << std::endl;
+    if (argc != 4){
+        std::cout << "Utilisation : ./Question question_i fichier_d'entrée fichier_de_sortie" << std::endl;
     }
     
     else{
         
         std::vector<std::vector<int> > matrix;
-        std::string question = argv[0];
-        std::string output = argv[2];
-        matrix = parse(argv[1]);
+        std::string question = argv[1];
+        std::string output = argv[3];
+        matrix = parse(argv[2]);
         
         //std::cout << "Done parsing" << std::endl;
         
@@ -39,7 +39,7 @@ int main(int argc, const char * argv[]){
             mainP3(matrix, output);
         }
         else{
-            std::cout << "Utilisation : ./QuestionI fichier_d'entrée fichier_de_sortie" << std::endl;
+            std::cout << "Utilisation : ./Question question_i fichier_d'entrée fichier_de_sortie" << std::endl;
         }
     }
     

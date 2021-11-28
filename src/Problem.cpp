@@ -24,6 +24,7 @@ int mainP1(std::vector<std::vector<int> > mat, std::string filename){
     M1 = matrix1[0][0];
     I1 = matrix1[0][1];
     K1 = matrix1[0][2];
+
     G1 = max(I1, max(K1, M1));
     FOR(j, 1, (propP1(M1, I1, K1) + 1)){
         S1.newVar();}

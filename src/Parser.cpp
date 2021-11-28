@@ -24,6 +24,7 @@ std::vector<std::vector<int> > parse (std::string filename){
         getline(file, line);
 
         for(int i = 0; i < line.size()-1; ++i){
+            std::cout<< line[i] <<std::endl;
             if (line[i] != ' '){
                 tmp *= 10;
                 tmp += int(line[i])-48;
