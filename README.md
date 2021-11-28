@@ -1,31 +1,15 @@
-<div class="titlepage">
+## Quickstack
 
-<div class="center">
+```
+cmake src
+make
+./Question 1 test/example_0.txt res1.txt
+./Question 2 test/example_1.txt res2.txt
+./Question 3 test/example_1.txt res3.txt
+```
 
-**<span class="smallcaps">UNIVERSITÉ LIBRE DE BRUXELLES</span>**  
-**<span class="smallcaps">Faculté des Sciences</span>**  
-**<span class="smallcaps">Département d’Informatique</span>**
+Explore results in `res*.txt`.
 
-<div class="center">
-
-INFO-F-302 Informatique Fondamentale : Rapport de projet
-
-</div>
-
-<div class="center">
-
-<span class="smallcaps">Omer</span> Nicolas  
-<span class="smallcaps">Picard</span> Simon
-
-</div>
-
-<img src="doc/Sigle_ULB.png" style="width:4cm" alt="image" />
-
-**Année académique 2013 - 2014**
-
-</div>
-
-</div>
 
 # Introduction
 
