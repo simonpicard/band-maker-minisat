@@ -52,6 +52,8 @@ Example:
 
 ### Contrainte d’existence
 
+<img src='static/exists.svg' >
+
 $$\\bigwedge\\limits\_{0\<a\\le M}\\ \\left(\\bigvee\\limits\_{0\<c\\le K}\\ \\bigvee\\limits\_{b\\in I_a}\\ X\_{a,b,c}\\right)$$
 Il s’agit simplement de dire que chaque musicien doit jouer un des
 instruments qu’il maitrise dans un groupe.
