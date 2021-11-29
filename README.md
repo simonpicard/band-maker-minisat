@@ -58,6 +58,8 @@ instruments qu’il maitrise dans un groupe.
 
 ### Un musicien ne peut être que dans un seul groupe
 
+![](static/musician_one_group.svg)
+
 $$\\bigwedge\\limits\_{0\<a\\le M}\\ \\bigwedge\\limits\_{b_1\\in I_a}\\ \\bigwedge\\limits\_{b_2\\in I_a}\\ \\bigwedge\\limits\_{0\<c_1\\le K}\\ \\bigwedge\\limits\_{c_1\<c_2\\le K}\\ \\left(\\neg X\_{a,b_1,c_1} \\vee \\neg X\_{a,b_2,c_2}\\right)$$
 
 Par musicien, nous disons qu’il ne peut pas, à la fois jouer d’un
