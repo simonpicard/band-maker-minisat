@@ -210,12 +210,12 @@ forme normale conjonctive :
 
 Ici, nous ne prenons plus tous les ensembles d’indices de `c`, , `t`
 mais uniquement les ensembles différents, nous nous retrouvons alors
-avec un coefficient binomial ${Max_a \\choose Max_a}$ qui vaut 1, en
+avec un coefficient binomial <img src='static/choose_max_a.svg' > qui vaut 1, en
 effet il s’agit simplement de la suite des indices ce qui nous donne
 bien ce qu’on souhaite, chaque `c`<sub>`t`</sub> sera différent des
 autres.
 
-<span id="addendum" label="addendum">\[addendum\]</span>
+<span id="addendum" label="addendum">addendum</span>
 
 Dans ce cas, les clauses générées auront pour but unique d’introduire
 une contrainte *au plus k* et il y en aura :
