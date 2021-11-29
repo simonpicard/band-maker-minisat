@@ -208,7 +208,7 @@ forme normale conjonctive :
 
 <img src='static/3-6.svg' >
 
-Ici, nous ne prenons plus tous les ensembles d’indices de `c`, , `t`
+Ici, nous ne prenons plus tous les ensembles d’indices de `c`<sub>`t`</sub>
 mais uniquement les ensembles différents, nous nous retrouvons alors
 avec un coefficient binomial <img src='static/choose_max_a.svg' > qui vaut 1, en
 effet il s’agit simplement de la suite des indices ce qui nous donne
