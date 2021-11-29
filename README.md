@@ -97,7 +97,7 @@ groupe.
 
 ## Définition des variables et symboles
 
--   `M``a``x`<sub>`a`</sub> représente le nombre maximum de groupe dans
+-   `Max`<sub>`a`</sub> représente le nombre maximum de groupe dans
     lequel le musicien `a` peut jouer.
 
 -   \|`I`<sub>`a`</sub>\| représente la cardinalité de `I`<sub>`a`</sub>
@@ -108,15 +108,15 @@ Les variables et symboles restants sont identiques à ceux de la question
 
 ## Forme Normale Conjonctive
 
-### Un musicien ne peut pas jouer dans plus de `M``a``x`<sub>`a`</sub> groupes
+### Un musicien ne peut pas jouer dans plus de `Max`<sub>`a`</sub> groupes
 
 Pour implémenter cela, nous allons étendre la solution "un groupe
 maximum" qui, pour rappel, voulait exprimer
-¬(`g``r``o``u``p``e`<sub>`1`</sub>∧`g``r``o``u``p``e`<sub>`2`</sub>) ∧ ¬(`g``r``o``u``p``e`<sub>`2`</sub>∧`g``r``o``u``p``e`<sub>`3`</sub>)…
-Dans la conjonction se trouveront `M``a``x`<sub>`a`</sub> + 1 littéraux.
+¬(`groupe`<sub>`1`</sub>∧`groupe`<sub>`2`</sub>) ∧ ¬(`groupe`<sub>`2`</sub>∧`groupe`<sub>`3`</sub>)…
+Dans la conjonction se trouveront `Max`<sub>`a`</sub> + 1 littéraux.
 Pour se faire, on commence par générer tous les sous-ensembles de groupe
-de taille `M``a``x`<sub>`a`</sub> + 1 et toutes les combinaisons de
-`I`<sub>`a`</sub> de taille `M``a``x`<sub>`a`</sub> + 1. Car un joueur
+de taille `Max`<sub>`a`</sub> + 1 et toutes les combinaisons de
+`I`<sub>`a`</sub> de taille `Max`<sub>`a`</sub> + 1. Car un joueur
 ne peut pas jouer d’un même instrument dans différents groupes ni de
 différents instruments dans différents groupes.
 
@@ -126,13 +126,13 @@ combinaisons avec les variables `x` et `y`.
 
 Cette contrainte est exprimée par la première ligne de la forme normale
 conjonctive suivante. On peut illustrer cela par un exemple où `K` = 3
-et `M``a``x`<sub>`a`</sub> + 1 = 2  
+et `Max`<sub>`a`</sub> + 1 = 2  
   
-$$\\bigwedge\\limits\_{0\<a\\le M}\\ \\bigwedge\\limits\_{0\<c_1\\le K}\\ \\bigwedge\\limits\_{c_1\<c_2\\le K}\\ \\ldots\\ \\bigwedge\\limits\_{c\_{{Max_a}}\<c\_{Max\_{a}+1}\\le K}\\ \\bigwedge\\limits\_{b_1 \\in I_a}\\ \\bigwedge\\limits\_{b_2 \\in I_a}\\ \\ldots\\  \\bigwedge\\limits\_{b\_{Max_a+1} \\in I_a}$$
+<img src='static/2-1.svg' >
 
-$$\\bigwedge\\limits\_{0\<t\_{1}\\le Max_a+1}\\  \\ldots\\  \\bigwedge\\limits\_{0\<t\_{Max_a+1}\\le Max_a+1}\\ \\bigwedge\\limits\_{0\<s_1\\le Max_a+1}\\  \\ldots\\  \\bigwedge\\limits\_{0\<s\_{Max_a+1}\\le Max_a+1}\\\\$$
+<img src='static/2-2.svg' >
 
-$$\\bigwedge\\limits\_{0\<y\\le Max_a+1}\\  \\left( \\bigvee\\limits\_{0\<z\\le Max_a+1}\\  \\neg X\_{a,b\_{s\_{y}},c\_{t\_{z}}}\\right)$$
+<img src='static/2-3.svg' >
 
 Nous nous rendons compte qu’avec cette contrainte, nous vérifions aussi
 la contrainte *Un instrument par groupe* puisque parfois, pour tout `y`,
@@ -140,12 +140,14 @@ la contrainte *Un instrument par groupe* puisque parfois, pour tout `y`,
 n’avons plus besoin de cette contrainte.  
 Pour le reste, les autres contraintes sont identiques.  
 Le nombre de clauses crée sera égal à :  
-$$\\sum\_{a=1}^{M}\\ \\left( {K \\choose Max_a+1}\\ \* \\ \|I_a\|^{Max_a+1}\\ \*\\ \\left(Max_a+1\\right)^{Max_a+1}\\ \*\\ \\left(Max_a+1\\right)^{Max_a+1}\\ \*\\  \\left(Max_a+1\\right) \\right)$$
+
+<img src='static/2-4.svg' >
 
 Soit  
-$$\\sum\_{a=1}^{M}\\ \\left( {K \\choose Max_a+1}\\ \* \\ \|I_a\|^{Max_a+1}\\ \*\\ \\left(Max_a+1\\right)^{2\*(Max_a+1)+1}\\ \\right)$$
 
-Sachant que chaque clause est composée des `M``a``x`<sub>`a`</sub>
+<img src='static/2-5.svg' >
+
+Sachant que chaque clause est composée des `Max`<sub>`a`</sub>
 littéraux. Cependant, il y aura des doublons dans les clauses générées,
 mais le solveur MiniSat se chargera de les supprimer pour nous[^1].
 
@@ -164,17 +166,15 @@ Les variables et les symboles sont identiques à ceux de la question 2.
 
 C’est toujours vrai sauf quand l’instrument considéré est le chant.
 
-$$\\bigwedge\\limits\_{0\<c\\le K}\\ \\bigwedge\\limits\_{0\<a_1\\le M}\\ \\bigwedge\\limits\_{a_1\<a_2\\le M}\\ \\bigwedge\\limits\_{\\substack{b\\in I\_{a_1} \\\\ b\\in I\_{a_2} \\\\ b \\ne I}}\\ \\left(\\neg X\_{a_1,b,c} \\vee \\neg X\_{a_2,b,c}\\right)$$
+<img src='static/3-1.svg' >
 
 ### Tous les instruments dans un groupe ou aucun
 
 La contrainte reste vraie, cependant si un musicien utilise un autre
 instrument que sa voix, ceci peut impliquer qu’il chante et inversement
 (s’il maîtrise ces instruments bien surs).  
-$$\\bigwedge\\limits\_{0\<c\\le K}\\ \\bigwedge\\limits\_{0\<a_1\\le M}\\ \\bigwedge\\limits\_{b_1\\in I\_{a_1}}\\ \\bigwedge\\limits\_{\\substack{0\<b_2\\le I \\\\ b_2 \\ne b_1}}\\ \\left(\\neg X\_{a_1,b_1,c} \\ \\bigvee\\limits\_{\\substack{0\<a_2\\le M \\\\ b_2 \\in I{a_2}}}\\left( \\
-\\bigvee\\limits\_{\\substack{a_2 \\ne a_1 \\\\ b_1 \\ne I}}\\  X\_{a_2,b_2,c}\\ 
-\\bigvee\\limits\_{\\substack{b_1 = I}}\\ X\_{a_2,b_2,c}\\ 
-\\bigvee\\limits\_{\\substack{a_2 = a_1 \\\\ b_2 = I}}\\ X\_{a_2,b_2,c}\\right)\\right)$$
+
+<img src='static/3-2.svg' >
 
 Dans la parenthèse la plus imbriquée, le premier grand ou est le même
 que précédemment, le second signifie que, si `a`<sub>`1`</sub> chante,
@@ -185,27 +185,28 @@ il peut faire les deux.
 ### Un instrument par groupe
 
 La contrainte *Un instrument par groupe* et la contrainte *Un musicien
-ne peut pas jouer dans plus de `M``a``x`<sub>`a`</sub> groupes* ne
+ne peut pas jouer dans plus de `Max`<sub>`a`</sub> groupes* ne
 peuvent plus être combinées, puisque la première n’est plus toujours
 vraie depuis l’arrivée de la composante du chant.  
 Commençons par réintroduire cette dernière :
 
-$$\\bigwedge\\limits\_{0\<a\\le M}\\ \\bigwedge\\limits\_{0\<c\\le K}\\ \\bigwedge\\limits\_{\\substack{b_1\\in I_a \\\\ b_1 \\ne I}}\\ \\bigwedge\\limits\_{\\substack{b_2\\in I_a \\\\ b_2 \\ne b1 \\ne I}}\\ \\left(\\neg X\_{a,b_1,c} \\vee \\neg X\_{a,b_2,c}\\right)$$
+<img src='static/3-3.svg' >
 
 Il s’agit de la même expression que dans la première question sauf que
 `b`<sub>`1`</sub> et `b`<sub>`2`</sub> ne peuvent pas valoir `I`, le
 *chant*.
 
-### Un musicien ne peut pas jouer dans plus de `M``a``x`<sub>`a`</sub> groupes
+### Un musicien ne peut pas jouer dans plus de `Max`<sub>`a`</sub> groupes
 
 Cette contrainte reste vraie, sauf pour l’instrument `I` et il ne faut
 plus introduire en même temps la contrainte décrite ci-dessus. Voici la
 forme normale conjonctive :  
-$$\\bigwedge\\limits\_{0\<a\\le M}\\ \\bigwedge\\limits\_{0\<c_1\\le K}\\ \\bigwedge\\limits\_{c_1\<c_2\\le K}\\ \\ldots\\ \\bigwedge\\limits\_{c\_{{Max_a}}\<c\_{Max\_{a}+1}\\le K}\\ \\bigwedge\\limits\_{\\substack{b_1 \\in I_a \\\\ b_1 \\ne I}}\\ \\bigwedge\\limits\_{\\substack{b_2 \\in I_a \\\\ b_2 \\ne I}}\\ \\ldots\\  \\bigwedge\\limits\_{\\substack{b\_{Max_a+1} \\in I_a \\\\ b\_{Max_a} \\ne I}}$$
 
-$$\\bigwedge\\limits\_{0\<t\_{1}\\le Max_a+1}\\  \\ldots\\  \\bigwedge\\limits\_{t\_{Max_a}\<t\_{Max_a+1}\\le Max_a+1}\\ \\bigwedge\\limits\_{0\<s_1\\le Max_a+1}\\  \\ldots\\  \\bigwedge\\limits\_{0\<s\_{Max_a+1}\\le Max_a+1}\\\\$$
+<img src='static/3-4.svg' >
 
-$$\\bigwedge\\limits\_{0\<y\\le Max_a+1}\\  \\left( \\bigvee\\limits\_{0\<z\\le Max_a+1}\\  \\neg X\_{a,b\_{s\_{y}},c\_{t\_{z}}}\\right)$$
+<img src='static/3-5.svg' >
+
+<img src='static/3-6.svg' >
 
 Ici, nous ne prenons plus tous les ensembles d’indices de `c`, , `t`
 mais uniquement les ensembles différents, nous nous retrouvons alors
@@ -219,10 +220,11 @@ autres.
 Dans ce cas, les clauses générées auront pour but unique d’introduire
 une contrainte *au plus k* et il y en aura :
 
-$$\\sum\_{a=1}^{M}\\ \\left( {K \\choose Max_a+1}\\ \* \\ \|I_a\|^{Max_a+1}\\ \*\\ \\left(Max_a+1\\right)\\ \*\\ \\left(Max_a+1\\right)^{Max_a+1}\\ \*\\  \\left(Max_a+1\\right) \\right)$$
+<img src='static/3-7.svg' >
 
 Soit  
-$$\\sum\_{a=1}^{M}\\ \\left( {K \\choose Max_a+1}\\ \* \\ \|I_a\|^{Max_a+1}\\ \*\\ \\left(Max_a+1\\right)^{Max_a+3}\\ \\right)$$
+
+<img src='static/3-8.svg' >
 
 Il est important de noter qu’on omettra l’instrument *chant* dans
 l’ensemble `I`<sub>`a`</sub>.
