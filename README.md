@@ -1,3 +1,5 @@
+# band-maker-minisat
+
 ## Quickstart
 
 ```
@@ -10,37 +12,39 @@ make
 
 Explore results in `res*.txt`.
 
+## Goal
 
-# Introduction
-
-Le but du projet d’informatique fondamentale est de former des groupes
-de musique sous certaines contraintes. Il s’agit d’exprimer les
-contraintes sous forme normale conjonctive afin de les encoder dans
-l’outil permettant de résoudre les différents problèmes donnés. Pour
-cela, nous utilisons le solveur *MiniSat* qui permet de déterminer, sous
-un ensemble de contraintes, si un problème est satisfaisable.
+The goal of the basic computer science project is to form groups of music under certain constraints. It is about expressing the constraints in conjunctive normal form in order to encode them in the tool to solve the various given problems. For this, we use the * MiniSat * solver which allows to determine, under a set of constraints, if a problem is satisfactory.
 
 # Question 1
 
-## Définition des variables et symboles
+## Definition of variables and symbols
 
-Dans cette section, nous définissons les différentes variables et
-symboles que nous utilisons dans l’expression des contraintes sous forme
-normale conjonctive.
+In this section, we define the different variables and symbols that we use in the expression of constraints in conjunctive normal form.
 
--   M est le nombre de musiciens.
+- `M` is the number of musicians.
+- `I` is the number of instruments.
+- `K` is the maximum number of groups.
+- `X`<sub>`a, b, c`</sub> is a variable such that for all musician `a`, the instrument `b` in the group `c`, `X`<sub>`a, b, c`</sub>` = true` if and only if the musician `a` plays the instrument `b` in the group `c`.
+- `I`<sub>`a`</sub> represents the list of instruments that `a` masters.
 
--   I est le nombre d’instruments.
+### Input file fomat
 
--   K est le nombre maximum de groupes.
+```
+M I K 
+1 first_instrument [second_instrument third_isnsturment ... kth_intsrument]
+2 first_instrument [second_instrument third_isnsturment ... kth_intsrument]
+...
+M first_instrument [second_instrument third_isnsturment ... kth_intsrument]
+```
 
--   *X*<sub>*a*, *b*, *c*</sub> est une variable telle que pour tout
-    musicien *a*, l’instrument *b* dans le groupe *c*,
-    *X*<sub>*a*, *b*, *c*</sub> = vrai si et seulement si le musicien
-    *a* joue de l’instrument *b* dans le groupe *c*.
-
--   *I*<sub>*a*</sub> représente la liste des instruments que *a*
-    maitrise.
+Example:
+```
+3 2 3
+1 1
+2 2 3
+3 2 3
+```
 
 ## Forme Normale Conjonctive
 
