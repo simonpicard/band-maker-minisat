@@ -215,7 +215,7 @@ effet il s’agit simplement de la suite des indices ce qui nous donne
 bien ce qu’on souhaite, chaque `c`<sub>`t`</sub> sera différent des
 autres.
 
-#### <span id="addendum" label="Addendum">addendum</span>
+#### <span id="Addendum" label="Addendum">addendum</span>
 
 Dans ce cas, les clauses générées auront pour but unique d’introduire
 une contrainte *au plus k* et il y en aura :
@@ -229,5 +229,5 @@ Soit
 Il est important de noter qu’on omettra l’instrument *chant* dans
 l’ensemble `I`<sub>`a`</sub>.
 
-[^1]: addendum au nombre de clauses créé à la section
-    <a href="#addendum" data-reference-type="ref" data-reference="addendum">[addendum]</a>
+[^1]: Addendum au nombre de clauses créé à la section
+    <a href="#Addendum" data-reference-type="ref" data-reference="Addendum">Addendum</a>
