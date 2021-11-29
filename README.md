@@ -3,6 +3,8 @@
 ## Quickstart
 
 ```
+git clone git@github.com:simonpicard/band-maker-minisat.git
+cd band-maker-minisat
 cmake src
 make
 ./Question 1 test/example_0.txt res1.txt
