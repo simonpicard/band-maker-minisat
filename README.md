@@ -215,7 +215,7 @@ effet il s’agit simplement de la suite des indices ce qui nous donne
 bien ce qu’on souhaite, chaque `c`<sub>`t`</sub> sera différent des
 autres.
 
-<span id="addendum" label="addendum">#### addendum</span>
+#### <span id="addendum" label="Addendum">addendum</span>
 
 Dans ce cas, les clauses générées auront pour but unique d’introduire
 une contrainte *au plus k* et il y en aura :
